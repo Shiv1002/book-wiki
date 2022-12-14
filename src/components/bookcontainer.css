@@ -1,0 +1,267 @@
+
+@keyframes hov {
+
+}
+body{
+    height: 90vh;
+    background: url('https://i.imgur.com/GMmCQHC.png') repeat center center;
+    background-size: cover;
+}
+#root{
+    height: 100%;
+}
+#search-type{
+    width: 100%;
+    font-size: large;
+}
+
+.font-link {
+    font-family: 'Radio Canada', sans-serif;
+}
+.bookTitle a{
+    font-size: large;
+    margin-right: 10px;
+}
+.bookTitle{
+    font-size: medium;
+}
+.cool {
+    font-family: 'Radio Canada', sans-serif;
+    font-size: small;
+    height: min-content;
+    max-height: 50vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: auto;
+    border-radius: 40px;
+    padding: 10px 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start,
+
+}
+.cool::-webkit-scrollbar{
+    display: none;
+}
+.cool::-webkit-scrollbar{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.container{
+    width: 80%;
+    margin : 10px auto;    
+    max-width: -webkit-fill-available;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 0px 5px 0px #00000085;
+}
+.img{
+    height:60vh;
+    width :40vh !important; 
+    transition: all 1s ease-in-out
+}
+.img:hover{
+    
+    background: #ffffff;    
+}
+.thumbContainer{
+    box-sizing: border-box; 
+   
+    padding: 5px;   
+   
+}
+.thumbContainer div{
+   
+    box-shadow: -5px -5px 0px 2px #fffb00f0, -9px -9px 0px 2px #4853ff, -13px -13px 0px 2px #03951c, -17px -17px 0px 2px #2c4e32;
+    padding: 0px;
+    transition: all 0.4s ease-in-out;
+   
+}
+.thumbContainer div:hover{
+    box-shadow:  none;
+    transform: translateY(-20px)  scale(1.05) ;
+
+}
+
+.cool:hover {
+    background-color: rgb(226, 234, 232);
+    border-radius: 20px;
+}
+
+p {
+    height: auto;
+    width: auto;
+}
+#list-num-header{
+color: #000000;
+}
+
+.login {
+    
+    color: black;
+    display: flex;
+    flex-direction: column;
+    height: -webkit-fill-available;
+    align-items: center;
+    justify-content: center;
+}
+
+.login table {
+    width: auto;
+    background-color: #ffffff;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0px 0px 20px 2px #424242ba; 
+}
+
+
+.login table h2{
+    font-size: 35px;
+    font-family: 'Kaushan Script', cursive;
+    margin: 10px;
+}
+
+.login table tr td {
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.login table tr td input {
+
+    height: 50px;
+    width: 95%;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: left;
+    font-size: large;
+    margin: 2px 0px;
+}
+input.user:placeholder-shown{
+font-family: inherit;
+}
+.login table tr td input:hover {
+    border-color: #0d6dfd;
+}
+
+.login table .labels {
+    display: flex;
+    margin: 0px 20px;
+    font-size: large;
+}
+.align-center{
+    justify-content: center;
+}
+.login-or {
+    position: relative;
+    color: #aaa;
+    margin: 3px 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    }
+    .span-or {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    margin-left: -65px;
+    background-color: rgb(254, 254, 254);
+    width: 126px;
+    font-size: large;
+    text-align: center;
+    }
+    .hr-or {
+    height: 1px;
+    width: 100%;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    border-top: 1px solid #aaa
+    }
+
+.buttn {
+    height: 50px;
+    width: 87%;
+    background-color: #0d6dfd;
+    color: rgb(236, 255, 255);
+    font-size: large;
+    border-radius: 40px;
+    border-color: rgb(0, 145, 255);
+
+}
+
+.buttn:hover {
+    background-color: #0d5391;
+}
+.navbar{
+    position: relative;
+    min-width: fit-content;    
+    background-color:#312626;
+    padding: 9px;
+    justify-content: center;
+}
+
+.nav-item:hover{
+    color: #ffffff;
+}
+.nav-pills .nav-link{
+     color: #ffffff;
+    font-size: large;
+    text-align: center;
+    margin: 5px 5px;
+}
+.white{
+    color: #ffffff;
+    font-size: large;
+}
+.nav-pills .nav-link:hover{
+    background-color: white;
+    color: #1b1d21;    
+    }
+
+.search-form{
+   display: flex;
+   flex-wrap: nowrap;
+}    
+table a{
+    color: #0d6dfddf;
+}  
+#logo button{
+    background-color: #ffffff;
+    margin: 5px 10px 10px 10px;
+    padding: 8px;
+    border-radius: 35px;
+    border: 1px solid rgb(128, 128, 128);
+}
+#logo button:hover{
+    background-color: #0d45fddf;
+}
+#logo button img {
+    height: 35px;
+    width: 35px;
+}
+
+.User{
+    font-size: large;
+    font-family: ui-sans-serif;
+    margin: -5px;
+}
+#emailImg{
+    height: 240px;
+    width: auto;
+    margin: 0px 40px;
+}
+
+@media screen and (max-width :992px){
+.search-form{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    align-items: center;
+}
+.container{
+    width: 80%;
+    min-width: -webkit-fill-available;
+    margin: 12px 13px;
+}
+}
