@@ -51,7 +51,7 @@ function AddBook() {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post("http://localhost:3080/api/books",data,config).then(res => console.log(res))         
+        axios.post("/api/books",data,config).then(res => console.log(res))         
         event.stopPropagation()
         
 
@@ -94,7 +94,7 @@ function AddBook() {
                             }))
                             
                                 }
-                                {x}
+                                
                             </Form.Select>
                         </Form.Group>
 

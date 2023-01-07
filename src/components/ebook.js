@@ -1,26 +1,33 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
-import { Link, Outlet, useParams, useRouteMatch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, Outlet, } from 'react-router-dom';
 import './bookcontainer.css';
-var card = document.getElementById("thumbContainer");
+
 
 function Ebook({ ebook }) {
   // only for one comp
-  var imgSrc;
-  try{
-    let url = "http://localhost:3080/images/";     
-     imgSrc = url+ebook.Thumbnail;
+  var imgSrc =  require("" + `./BookThumbnail/No Image.jpg`);
+
+  const [imgUrl,setUrl] = useState(imgSrc);
+  useEffect(() => {
+    try{
+      let url = process.env.REACT_APP_SERVER+"images/";     
+       imgSrc = url+ebook.Thumbnail;
+       setUrl(imgSrc);    
+    }catch(e){      
+      console.log(e)
+    }
   
-  }catch(e){
-    imgSrc = require("" + `./BookThumbnail/No Image.jpg`)
-    console.log(e)
-  }
+    
+  }, [])
+  
+ 
   return (
     // container bg-light font-link
     <div id='thumbContainer' className='my-3 mx-3 thumbContainer'  >
       <Link to={`/book/${ebook.srno - 1}`} >
         <div>
-           <img className="img"  src={imgSrc} alt="Image" />
+           <img className="img"  src={imgUrl} alt="Image" />
         </div>       
       </Link>
       <Outlet />

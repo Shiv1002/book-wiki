@@ -6,7 +6,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom'
-
+import { CircularProgress } from '@mui/material';
 import NavBar from './components/Nav'
 import MainFrame from './components/Main';
 import Message from './components/message';
@@ -20,7 +20,7 @@ const axios = require('axios');
 function App() {
 
   const [books, setBook] = useState([]);
-  const [genre,setGenre] = useState([])
+  const [genre, setGenre] = useState([])
   //using axios
 
 
@@ -29,36 +29,40 @@ function App() {
     //perform get requost 
     console.log("useEffect called")
     axios.get('/api/books')
-      .then(res => { setBook(res.data.bookList);setGenre(res.data.genre) })  // handle success    // response hold config, , data, headers request status statusText
-      .catch(error => console.log(error))    
+      .then(res => { setBook(res.data.bookList); setGenre(res.data.genre) })  // handle success    // response hold config, , data, headers request status statusText
+      .catch(error => console.log(error))
   }, []);
 
-let x = genre.map((ele)=>{
-  return(<Route path={ele} element={<MainFrame ebook={books}  genre={ele} key={ele}/>} />)
-});
+  let genreTabs = genre.map((ele) => {
+    return (<Route path={ele} element={<MainFrame ebook={books} key={ele} genre={ele} />} />)
+  });
 
-  return (
-    <>
+  
+    if (books.length !== 0) {
+    return (<>
       <Router>
-
         <Routes>
-          <Route path="/" element={<NavBar ebook={books} genre={genre}/>}>
-            <Route index element={<MainFrame ebook={books} genre="All" />} />           
-            
-            {x}
-            
+          <Route path="/" element={<NavBar ebook={books} genre={genre} />}>
+            <Route index element={<MainFrame ebook={books} genre="All" />} />
+
+            {genreTabs}
+
             <Route path="Subscribe" element={<Message />} />
-            <Route path="AddBook" element={<AddBook/>}     />  
-            <Route path="book/:id" element={<BookDiscription ebook={books}/>}/>
+            <Route path="AddBook" element={<AddBook />} />
+            <Route path="book/:id" element={<BookDiscription ebook={books} />} />
           </Route>
-          
-           <Route path='*' element={<ErrorPage />}></Route> 
+
+          <Route path='*' element={<ErrorPage />}></Route>
         </Routes>
       </Router>
 
-    </>
+    </>)
+  } else {
+    return(<CircularProgress />)
+  }
+    
 
-  );
+  
 }
 
 export default App;

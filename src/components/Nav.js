@@ -7,12 +7,12 @@ class NavBar extends Component {
     super(props)
 
     const e = props.ebook;
-    
+
     this.state = {
       // word is holder of term being searched
       word: '',
       ebook: e,
-      genres:null,
+      genres: null,
       nameList: e.map((x) => x.Name),
       AuthorList: e.map((x) => x.Author),
       PublisherList: e.map((x) => x.Publisher)
@@ -22,12 +22,12 @@ class NavBar extends Component {
 
   static getDerivedStateFromProps(props, state) {
     state.ebook = props.ebook
-    state.genres  = props.genre
+    state.genres = props.genre
     console.log(props)
-    
+
     return state
   }
-  
+
 
   inputHandler = (event) => {
     console.log("Event is fired")
@@ -74,13 +74,13 @@ class NavBar extends Component {
   }
   //search end
 
-    submit = (event) => {
+  submit = (event) => {
     this.Search(this.state.word)
     //to stop reloadinng of paage
     event.preventDefault()
   }
 
-  
+
   render() {
     return (
       <>
@@ -94,15 +94,15 @@ class NavBar extends Component {
               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/">Home</Link>
               </li>
-            {
-            
-      this.navCat = this.state.genres.map((ele)=>{
-        return (<li className="nav-item"  key={ele}>
-        <Link className="nav-link" to={ele}>{ele}</Link>
-      </li>)
-      })
-    
-    }              
+              {
+
+                this.navCat = this.state.genres.map((ele) => {
+                  return (<li className="nav-item" key={ele}>
+                    <Link className="nav-link" to={ele}>{ele}</Link>
+                  </li>)
+                })
+
+              }
               <li className="nav-item">
                 <Link className="nav-link " to="/Subscribe">Subcribe</Link>
               </li>
