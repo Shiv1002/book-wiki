@@ -1,11 +1,11 @@
-import { parse } from '@fortawesome/fontawesome-svg-core';
+
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-
+import noImage from './BookThumbnail/No Image.jpg' ;
 function BookDiscription({ ebook }) {
   let { id } = useParams();
-  var imgSrc = require("" + `./BookThumbnail/No Image.jpg`)
-  const [imgUrl,setUrl] =  useState(imgSrc)
+  
+  const [imgUrl,setUrl] =  useState(noImage)
   // id of 0
   // {srno: 1, Name: 'Harry Potter', Thumbnail: '', Author: 'J.K. Rowling', Genre: 'Fantasy', …}
   // Author: "J.K. Rowling"
@@ -21,13 +21,12 @@ function BookDiscription({ ebook }) {
 
   useEffect(()=>{
     try {
-    let url = process.env.REACT_APP_SERVER +"images/";     
-    imgSrc = url+ebook[id].Thumbnail;
-    setUrl(imgSrc)
+    let urlThumbnail = process.env.REACT_APP_SERVER +"images/"+ebook[id].Thumbnail;     
+    setUrl(urlThumbnail)
   } catch (e) {
     console.log(e)
    }
-  },[])
+  },[ebook,id])
   
  
   return (
@@ -47,7 +46,7 @@ function BookDiscription({ ebook }) {
       display: "flex",
       fontSize: " 2rem"
          }}>
-        <img className="img" style={{ background: "Black" }} src={imgUrl} alt="Image" />
+        <img className="img" style={{ background: "Black" }} src={imgUrl} alt="" />
 
         <div className='m-3' >
           <p>Name : {ebook[id].Name}</p>

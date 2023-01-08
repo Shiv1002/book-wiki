@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import { gapi } from 'gapi-script'
-
-
+import urls from "./BaseUrls";
 import './bookcontainer.css'
+import googleLogo from "./logo/google-logo.png"
+import twitterLogo from "./logo/twitter-logo.png"
+import facebookLogo from "./logo/facebook-logo.png"
 
-class Message extends Component {
+class Subcribers extends Component {
     constructor() {
         super()
         var setcount = 0;
@@ -19,7 +21,7 @@ class Message extends Component {
         
     }
 
-
+     
     static getDerivedStateFromProps(props, state) {
 
         // The getDerivedStateFromProps() method is called right before rendering the element(s) in the DOM.
@@ -46,12 +48,14 @@ class Message extends Component {
         // This is where you run statements that requires when the component is already placed in the DOM
 
         var getCount = 0
-        const res = await fetch("/api/users")
+        //fetching all users
+        const res = await fetch(urls.users)
         const users = await res.json()
         //json is users
         getCount = users.length
         console.log("Total Subsciber we have ", getCount)
         console.log("componentDidMount called")
+
         this.setState({
             count: getCount,
             email: localStorage.getItem('loginEmail')
@@ -117,15 +121,15 @@ class Message extends Component {
         }
         else {
             console.log("Invalid Email or Password!!")
-
             return
         }
 
         const data = { "postID": this.state.count, "email": this.state.email, "password": this.state.password }
 
         console.log("posting data")
-
-        fetch('http://localhost:3080/api/users', {
+        
+        //fetching users
+        fetch( urls.users, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -135,8 +139,6 @@ class Message extends Component {
             .then(res => res.json())
             .then(data => console.log(data))
             .catch(err => console.log(err))
-
-
 
     }
 
@@ -230,7 +232,7 @@ class Message extends Component {
                                                     clientId={this.state.clientId}
                                                     render={renderProps => (
                                                         <button onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                                                            <img src={require('./logo/google-logo-9822.png')} />
+                                                            <img src={googleLogo} alt="Google" />
                                                         </button>
                                                     )}
                                                     isSignedIn={true}
@@ -240,9 +242,9 @@ class Message extends Component {
 
                                                 >
                                                 </GoogleLogin>
-                                                <button><img src={require('./logo/2021_Facebook_icon.png')} /></button>
+                                                <button><img src={facebookLogo} alt="facebook"/></button>
                                                 
-                                                <button><img src={require('./logo/logo-twitter-png-5863.png')}  /></button>
+                                                <button><img src={twitterLogo} alt="twitter" /></button>
 
                                             </div>
                                             </td>
@@ -256,7 +258,7 @@ class Message extends Component {
                                                 <td className="User"><h3 className="my-0">{localStorage.getItem('loginName')}</h3></td>
                                             </tr>
                                             <tr>
-                                                <td className="User"><img id="emailImg" src={localStorage.getItem('imageUrl')} alt="No Image" /> </td>
+                                                <td className="User"><img id="emailImg" src={localStorage.getItem('imageUrl')} alt="" /> </td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -294,4 +296,4 @@ class Message extends Component {
     }
 }
 
-export default Message
+export default Subcribers

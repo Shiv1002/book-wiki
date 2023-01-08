@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+
 import Ebook from './ebook'
 import Header from './header';
 

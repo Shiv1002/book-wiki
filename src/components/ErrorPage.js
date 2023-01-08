@@ -37,7 +37,7 @@ function ErrorPage() {
             <h2 style={{ ...style.textEle, fontSize: "3rem" }} >ERROR</h2>
             < p style={{ ...style.textEle, ...style.h2 }} >Page Not Found!</p>
             <h2 style={{ ...style.textEle, ...style.h2 }} >Seems you Entered Invalid Url or clicked on bad link.</h2>
-            < p style={{ ...style.textEle, ...style.h2 }} >Try <Link className="" aria-current="page" to="/">Home</Link></p>
+            < p style={{ ...style.textEle, ...style.h2 }} >Try <Link className="" aria-current="page" to="book-wiki/">Home</Link></p>
         </div>
 
     )

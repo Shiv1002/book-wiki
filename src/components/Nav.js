@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import './bookcontainer.css';
@@ -80,37 +81,41 @@ class NavBar extends Component {
     event.preventDefault()
   }
 
+  handleNavbar=()=>{
+  document.getElementById('navToggler').click()
+  }
 
+  
   render() {
     return (
       <>
         <nav className='navbar navbar-expand-lg'>
-          <button type="button" className="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <button id="navToggler" type="button" className="navbar-toggler bg-light" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" >
             <span className="navbar-toggler-icon"></span>
           </button>
           <div id='navbarCollapse' className='collapse navbar-collapse'>
             <ul className="nav nav-pills navbar-nav">
 
               <li className="nav-item">
-                <Link className="nav-link" aria-current="page" to="/">Home</Link>
+                <Link className="nav-link" aria-current="page" to="/" >Home</Link>
               </li>
               {
 
                 this.navCat = this.state.genres.map((ele) => {
                   return (<li className="nav-item" key={ele}>
-                    <Link className="nav-link" to={ele}>{ele}</Link>
+                    <Link className="nav-link" to={ele} >{ele}</Link>
                   </li>)
                 })
 
               }
               <li className="nav-item">
-                <Link className="nav-link " to="/Subscribe">Subcribe</Link>
+                <Link className="nav-link " to="/Subscribe" >Subcribe</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link " to="/AddBook">Add a Book</Link>
+                <Link className="nav-link " to="/AddBook" >Add a Book</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link " to="#??">about</Link>
+                <Link className="nav-link " to="#??" >about</Link>
               </li>
 
             </ul>

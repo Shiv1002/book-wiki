@@ -1,14 +1,14 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet, } from 'react-router-dom';
 import './bookcontainer.css';
-
+import noImage from './BookThumbnail/No Image.jpg'
 
 function Ebook({ ebook }) {
   // only for one comp
-  var imgSrc =  require("" + `./BookThumbnail/No Image.jpg`);
+  var imgSrc =  noImage
 
-  const [imgUrl,setUrl] = useState(imgSrc);
+  const [imgUrl,setUrl] = useState(noImage);
   useEffect(() => {
     try{
       let url = process.env.REACT_APP_SERVER+"images/";     
