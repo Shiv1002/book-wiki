@@ -46,7 +46,7 @@ function BookDiscription({ ebook }) {
       display: "flex",
       fontSize: " 2rem"
          }}>
-        <img className="img" style={{ background: "Black" }} src={imgUrl} alt="" />
+        <img  crossOrigin="anonymous" className="img" style={{ background: "Black" }} src={imgUrl} alt="" />
 
         <div className='m-3' >
           <p>Name : {ebook[id].Name}</p>

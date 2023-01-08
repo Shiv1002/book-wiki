@@ -27,7 +27,7 @@ function Ebook({ ebook }) {
     <div id='thumbContainer' className='my-3 mx-3 thumbContainer'  >
       <Link to={`/book/${ebook.srno - 1}`} >
         <div>
-           <img className="img"  src={imgUrl} alt="Image" />
+           <img crossOrigin="anonymous" className="img"  src={imgUrl} alt="Image" />
         </div>       
       </Link>
       <Outlet />
