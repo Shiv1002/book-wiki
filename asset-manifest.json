@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/book-wiki/static/css/main.69576798.css",
-    "main.js": "/book-wiki/static/js/main.76d796d8.js",
+    "main.js": "/book-wiki/static/js/main.6f8d5640.js",
     "static/js/787.5480e000.chunk.js": "/book-wiki/static/js/787.5480e000.chunk.js",
     "static/media/No Image.jpg": "/book-wiki/static/media/No Image.cd4b77d13e7dfb1cfe59.jpg",
     "static/media/twitter-logo.png": "/book-wiki/static/media/twitter-logo.6208f93b69e5b1ed000d.png",
     "static/media/google-logo.png": "/book-wiki/static/media/google-logo.49eda5baf38c81b402f5.png",
     "index.html": "/book-wiki/index.html",
     "main.69576798.css.map": "/book-wiki/static/css/main.69576798.css.map",
-    "main.76d796d8.js.map": "/book-wiki/static/js/main.76d796d8.js.map",
+    "main.6f8d5640.js.map": "/book-wiki/static/js/main.6f8d5640.js.map",
     "787.5480e000.chunk.js.map": "/book-wiki/static/js/787.5480e000.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.69576798.css",
-    "static/js/main.76d796d8.js"
+    "static/js/main.6f8d5640.js"
   ]
 }
