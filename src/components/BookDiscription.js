@@ -42,23 +42,21 @@ function BookDiscription({ ebook }) {
       background:"cornsilk"
     }}> 
 
-    <div className='m-3' style={{
+    <div className='m-3 book-head' style={{
       display: "flex",
-      fontSize: " 2rem"
+      fontSize: "1.4rem"
          }}>
         <img  crossOrigin="anonymous" className="img" style={{ background: "Black" }} src={imgUrl} alt="" />
 
         <div className='m-3' >
           <p>Name : {ebook[id].Name}</p>
           <p>Author : {ebook[id].Author}</p>
-          <p>genre: {ebook[id].Genre}</p>
-          <p>Publisher :{ebook[id].Publisher}</p>
+          <p>Genre: {ebook[id].Genre}</p>
+          <p>Publisher: {ebook[id].Publisher}</p>
         </div>
-
       </div>
 
-      <p className='m-4'>{ebook[id].Description}
-      </p>
+      <p className='m-4'>{ebook[id].Description}      </p>
     </div>
   )
 }

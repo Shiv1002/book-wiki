@@ -56,9 +56,9 @@ body{
     box-shadow: 0px 0px 5px 0px #00000085;
 }
 .img{
-    height:60vh;
-    width :40vh !important; 
-    transition: all 1s ease-in-out
+    height: 53vh;
+box-sizing: border-box;
+max-width: 36vh;
 }
 .img:hover{
     
@@ -264,4 +264,10 @@ table a{
     min-width: -webkit-fill-available;
     margin: 12px 13px;
 }
+}
+@media screen and (max-width :360px){
+    .book-head{
+        display: flex;
+        flex-direction: column;
+    }
 }
