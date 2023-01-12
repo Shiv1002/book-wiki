@@ -52,14 +52,13 @@ function App() {
             <Route path="AddBook" element={<AddBook />} />
             <Route path="book/:id" element={<BookDiscription ebook={books} />} />
           </Route>
-
           <Route path='*' element={<ErrorPage />}></Route>
         </Routes>
       </Router>
 
     </>)
   } else {
-    return(<CircularProgress />)
+    return(<CircularProgress  style={{margin:"40vh 50vw"}} />)
   }
     
 
