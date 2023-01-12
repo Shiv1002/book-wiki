@@ -93,8 +93,8 @@ function AddBook() {
     }
 
     return (
-        <div>
-            <Card className='m-5'>
+        <div className='m-2 p-4'>
+            <Card className='col-md-6 col-sm-8 col-xs-8 mx-auto'>
                 <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                         This is a success message!
