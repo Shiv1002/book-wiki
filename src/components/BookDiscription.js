@@ -30,7 +30,8 @@ function BookDiscription({ ebook }) {
   
  
   return (
-    <div className='book-desc col-md-6 col-lg-6 col-sm-10 col-xs-8 mx-auto my-3 ' style={{
+    <div className='p-1'>
+<div className='book-desc col-md-6 col-lg-6 col-sm-10 col-xs-8 mx-auto my-3 p-1 ' style={{
       border: "0px solid black",
       borderRadius: "20px",
       padding: "10px",
@@ -59,6 +60,8 @@ function BookDiscription({ ebook }) {
 
       <p className='m-4 book-head'>{ebook[id].Description}</p>
     </div>
+    </div>
+    
   )
 }
 
