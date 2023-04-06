@@ -1,11 +1,13 @@
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import noImage from './BookThumbnail/No Image.jpg' ;
+import noImage from './BookThumbnail/No Image.jpg';
+import axios from 'axios';
 function BookDiscription({ ebook }) {
   let { id } = useParams();
-  
-  const [imgUrl,setUrl] =  useState(noImage)
+
+  const [currBook, setCurrbook] = useState({})
+  const [isImageLoaded,setImageLoaded] = useState(false)
   // id of 0
   // {srno: 1, Name: 'Harry Potter', Thumbnail: '', Author: 'J.K. Rowling', Genre: 'Fantasy', …}
   // Author: "J.K. Rowling"
@@ -17,51 +19,51 @@ function BookDiscription({ ebook }) {
   // link: "https://www.goodreads.com/book/show/1885.Pride_and_Prejudice?ac=1&from_search=true&qid=qvieLlISY0&rank=2"
   // srno: 1
 
-  console.log(ebook[id])
 
-  useEffect(()=>{
-    try {
-    let urlThumbnail = process.env.REACT_APP_SERVER +"images/"+ebook[id].Thumbnail;     
-    setUrl(urlThumbnail)
-  } catch (e) {
-    console.log(e)
-   }
-  },[ebook,id])
-  
- 
+
+  useEffect(() => {
+    console.log("useeffect in bookDesc")
+    setBook(ebook.filter((ele) => { if (ele.id == id) { return true } })[0])
+  }, [], console.log(currBook, currBook.image_url))
+
+  const setBook = (con)=>{
+    setCurrbook(con)
+  }
+  const imageError = (event)=>{
+    event.target.src = noImage
+  }
+
   return (
     <div className='p-1'>
-<div className='book-desc col-md-6 col-lg-6 col-sm-10 col-xs-8 mx-auto my-3 p-1 ' style={{
-      border: "0px solid black",
-      borderRadius: "20px",
-      padding: "10px",
-      boxShadow: "black 1px 2px 20px 5px",
-      fontSize: "1rem",
-      fontFamily: 'Exo, sans-serif',
-      fontWeight: "500",
-      // margin: "2rem auto",
-      // background:"blue",
-      
-      
-    }}> 
+      <div className='book-desc col-md-6 col-lg-6 col-sm-10 col-xs-8 mx-auto my-3 p-1 ' style={{
+        border: "0px solid black",
+        borderRadius: "20px",
+        padding: "10px",
+        boxShadow: "black 1px 2px 20px 5px",
+        fontSize: "1rem",
+        fontFamily: 'Exo, sans-serif',
+        fontWeight: "500",
+        // margin: "2rem auto",
+        // background:"blue",
+      }}>
 
-    <div className='m-3 ' style={{
-      display: "flex",
-         }}>
-        <img  crossOrigin="anonymous" className="img m-2" style={{ background: "Black" }} src={imgUrl} alt="" />
+        <div className='m-3 ' style={{
+          display: "flex",
+        }}>
+          <img className="img m-2" alt="Image" src={currBook.image_url} onError={imageError}/>
 
-        <div className='m-2 book-head' >
-          <p><strong> Name </strong>: {ebook[id].Name}</p>
-          <p><strong>Author</strong> : {ebook[id].Author}</p>
-          <p><strong>Genre</strong>: {ebook[id].Genre}</p>
-          <p><strong>Publisher</strong>: {ebook[id].Publisher}</p>
+          <div className='m-2 book-head' >
+            
+          <p><strong> Name </strong>: {currBook.title}</p>
+          <p><strong>Author</strong> : {currBook.authors}</p>
+          <p><strong>Genres</strong>: {currBook.genres}</p>
+          </div>
         </div>
-      </div>
 
-      <p className='m-4 book-head'>{ebook[id].Description}</p>
+        <p className='m-4 book-head'>{currBook.description}</p>
+      </div>
     </div>
-    </div>
-    
+
   )
 }
 

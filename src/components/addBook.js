@@ -19,7 +19,8 @@ function AddBook() {
 
     useEffect(() => {
         axios.get(urls.books)
-            .then(res => { setGenre(res.data.genre); console.log("Number of books found", res.data.bookList.length + 1) }).catch(e => console.log(e))
+            .then(res => { setGenre(res.data.genre); console.log("Number of books found", res.data.length) })
+            .catch(e => console.log(e))
     }, [])
 
     useEffect(() => { console.log("Updated values", frm) }, [frm])
@@ -37,7 +38,7 @@ function AddBook() {
         // console.log(event.target)
         // handlesubmit is connected to FORM with target
         // form target checkvalidity return boolean value true if all fields are correct
-        
+
         event.preventDefault();
         event.stopPropagation();
         setValidation(true)
@@ -69,19 +70,19 @@ function AddBook() {
             };
             console.log("Data being sent", data);
             await axios.post(urls.books, data, config)
-            .then(res => { 
-                console.log(res); 
-                setOpen(true);
-                setForm(initValue) 
-                setImage()
-                setValidation(false)
-                
-            })
-            .catch(err => console.log(err))
+                .then(res => {
+                    console.log(res);
+                    setOpen(true);
+                    setForm(initValue)
+                    setImage()
+                    setValidation(false)
+
+                })
+                .catch(err => console.log(err))
 
 
         }
-       
+
     };
 
     const handleImg = e => {
@@ -127,11 +128,11 @@ function AddBook() {
                             <Form.Label>Choose Genre of the book</Form.Label>
                             <Form.Select name="Genre" aria-label="Default select example" style={{ width: "12rem" }} onChange={HandlEvent} defaultValue={frm.Genre}>
                                 <option value="Genre" disabled >Genre</option>
-                                {
+                                {/* {
                                     (genre.map((ele) => {
                                         return (<option value={ele} required key={ele}>{ele}</option>)
                                     }))
-                                }
+                                } */}
 
                             </Form.Select>
                         </Form.Group>

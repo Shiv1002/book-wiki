@@ -1,27 +1,29 @@
 import React, { Component } from "react";
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import { gapi } from 'gapi-script'
+import FacebookLogin from 'react-facebook-login';
 import urls from "./BaseUrls";
 import './bookcontainer.css'
 import googleLogo from "./logo/google-logo.png"
 import twitterLogo from "./logo/twitter-logo.png"
 import facebookLogo from "./logo/facebook-logo.png"
-
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
+import { LoginSocialTwitter ,} from "reactjs-social-login";
+import { TwitterLoginButton } from "react-social-login-buttons";
 class Subcribers extends Component {
     constructor() {
         super()
         var setcount = 0;
-        console.log("no1 ")
         this.state = {
             count: setcount,
             email: '',
-            password: '' ,
-            clientId : '970428558790-ffr69jngr3odgddnb8043sdn6pii1cd2.apps.googleusercontent.com',
+            password: '',
+            clientId: '970428558790-ffr69jngr3odgddnb8043sdn6pii1cd2.apps.googleusercontent.com',
         }
-        
     }
 
-     
+
     static getDerivedStateFromProps(props, state) {
 
         // The getDerivedStateFromProps() method is called right before rendering the element(s) in the DOM.
@@ -34,13 +36,13 @@ class Subcribers extends Component {
     }
 
     start(client) {
-// here state cannot be used
-        try{            
+        // here state cannot be used
+        try {
             gapi.client.init({ clientId: client, scope: '' })
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
-       
+
     }
 
     async componentDidMount() {
@@ -49,25 +51,25 @@ class Subcribers extends Component {
 
         var getCount = 0
         //fetching all users
-        const res = await fetch(urls.users)
-        const users = await res.json()
-        //json is users
-        getCount = users.length
-        console.log("Total Subsciber we have ", getCount)
+        // const res = await fetch(urls.users)
+        // const users = await res.json()
+        // //json is users
+        // getCount = users.length
+        // console.log("Total Subsciber we have ", getCount)
         console.log("componentDidMount called")
 
         this.setState({
-            count: getCount,
+            // count: getCount,
             email: localStorage.getItem('loginEmail')
         })
         localStorage.setItem('count', this.state.count)
         console.log("Email On Load", this.setState.email)
 
         //
-        try{
+        try {
             gapi.load('client:auth2', this.start(this.state.clientId));
-        }catch(err){console.log(err)}
-       
+        } catch (err) { console.log(err) }
+
     }
 
     // shouldComponentUpdate(nextprops, nextstate) {
@@ -127,9 +129,9 @@ class Subcribers extends Component {
         const data = { "postID": this.state.count, "email": this.state.email, "password": this.state.password }
 
         console.log("posting data")
-        
+
         //fetching users
-        fetch( urls.users, {
+        fetch(urls.users, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -239,12 +241,28 @@ class Subcribers extends Component {
                                                     onSuccess={this.handleSuccess}
                                                     onFailure={this.handleFail}
                                                     cookiePolicy={'single_host_origin'}
-
                                                 >
                                                 </GoogleLogin>
-                                                <button><img src={facebookLogo} alt="facebook"/></button>
-                                                
-                                                <button><img src={twitterLogo} alt="twitter" /></button>
+                                                <button><img src={facebookLogo} alt="facebook" />
+                                                    <LoginSocialFacebook
+                                                        appId={952930172374934}
+
+                                                        onReject={(err) => console.log(err)}
+                                                        onResolve={(res) => { console.log(res) }} >
+                                                        <FacebookLoginButton />
+                                                    </LoginSocialFacebook>
+                                                </button>
+
+                                                <button><img src={twitterLogo} alt="twitter" />
+                                                    <LoginSocialTwitter
+                                                        appId={26870406}
+                                                        callbackUrl="http://localhost:3000/book-wiki/Subscribe/callback"
+                                                        onLoginSuccess={(user)=>console.log(user)}
+                                                        onLoginFailure={console.error}
+                                                    >
+                                                        Login with Twitter
+                                                    </LoginSocialTwitter>
+                                                </button>
 
                                             </div>
                                             </td>

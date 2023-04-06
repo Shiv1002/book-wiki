@@ -24,22 +24,59 @@ function App() {
   const [genre, setGenre] = useState([])
   //using axios
 
-
-
   useEffect(() => {
-    //perform get requost 
+    //perform get request 
     console.log("useEffect called")
     axios.get(urls.books)
-      .then(res => { setBook(res.data.bookList); setGenre(res.data.genre) })  // handle success    // response hold config, , data, headers request status statusText
+      .then(res => { setBook(res.data); gatherGenresFromGenreList(res.data) })  // handle success    // response hold config, , data, headers request status statusText
       .catch(error => console.log(error))
   }, []);
 
   let genreTabs = genre.map((ele) => {
-    return (<Route path={ele} element={<MainFrame ebook={books} key={ele} genre={ele} />} />)
+// console.log(encodeURIComponent(ele))
+    return (<Route path={encodeURIComponent(ele)} element={<MainFrame ebook={books} key={ele} genre={ele} />} />)
   });
 
-  
-    if (books.length !== 0) {
+  const gatherGenresFromGenreList = (list) => {
+    var listFrmData = list
+    var eachBookGenre = []
+    var newGenreList = {}
+    // convrting all genres in list.ele into a single name
+    listFrmData.map((ele) => {
+      var name = ""
+      var bookGenreList = []
+      for (var gen of ele.genre_list) {
+
+        if (gen != ',') {
+          name += gen
+
+        } else {
+          if (newGenreList[name] == undefined) {
+            newGenreList[name] = 1
+          }
+          bookGenreList.push(name)
+          name = ""
+        }
+      }
+      eachBookGenre.push(bookGenreList);
+      // console.log(bookGenreList)
+    })
+    //setting all uniqe genres 
+    setGenre(Object.keys(newGenreList))
+    
+    // eeach books  genres list
+    // console.log(eachBookGenre)
+    // iterating over list and adding new ebook element with its own genre list as a list
+    var i = 0;
+    list = list.map((ele) => { ele.genre_list = eachBookGenre[i];i++; return ele })
+
+    // console.log("All gernes", Object.keys(newGenreList));
+    // list.map((ele) => { console.log(ele, "after") })
+
+    //set new ebooks datas with updated genre list
+    setBook(list)
+  }
+  if (books.length !== 0) {
     return (<>
       <Router basename='/book-wiki'>
         <Routes >
@@ -48,7 +85,7 @@ function App() {
 
             {genreTabs}
 
-            <Route  path="Subscribe" element={<Subcribers />} />
+            <Route path="Subscribe" element={<Subcribers />} />
             <Route path="AddBook" element={<AddBook />} />
             <Route path="book/:id" element={<BookDiscription ebook={books} />} />
           </Route>
@@ -58,11 +95,17 @@ function App() {
 
     </>)
   } else {
-    return(<CircularProgress  style={{margin:"40vh 50vw"}} />)
-  }
-    
+    return (
+      <div className='load'  >
+        <CircularProgress style={{ color: "#146bec" }} />
+        {/* <h3>Loading...</h3> */}
+      </div>
 
-  
+    )
+  }
+
+
+
 }
 
 export default App;

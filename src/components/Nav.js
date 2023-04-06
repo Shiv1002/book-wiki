@@ -2,6 +2,9 @@
 import React, { Component } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import './bookcontainer.css';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class NavBar extends Component {
   constructor(props) {
@@ -16,17 +19,27 @@ class NavBar extends Component {
       genres: null,
       nameList: e.map((x) => x.Name),
       AuthorList: e.map((x) => x.Author),
-      PublisherList: e.map((x) => x.Publisher)
+      PublisherList: e.map((x) => x.Publisher),
+      navCat: [],
     }
   }
-  navCat;
+  navCat = [];
 
   static getDerivedStateFromProps(props, state) {
     state.ebook = props.ebook
     state.genres = props.genre
-    console.log(props)
 
     return state
+  }
+
+  componentDidMount() {
+
+    // // for(var i =0;i<5;i++){
+    // //   console.log(this.state.genres[i])
+    // //   this.navCat.push((<li className="nav-item" key={this.state.genres[i]}>
+    // //   <Link className="nav-link" to={encodeURIComponent(this.state.genres[i])} >{this.state.genres[i]}</Link>
+    // // </li>))
+    // }
   }
 
 
@@ -53,7 +66,7 @@ class NavBar extends Component {
       }
       else return false
     })
-    // list of book found after search 
+    // list of book found after search
 
     result.map((ob) => console.log(ob))
 
@@ -70,9 +83,8 @@ class NavBar extends Component {
     else {
       alert(`Searched one is present at ${noList}`)
     }
-
-
   }
+
   //search end
 
   submit = (event) => {
@@ -81,11 +93,11 @@ class NavBar extends Component {
     event.preventDefault()
   }
 
-  handleNavbar=()=>{
-  document.getElementById('navToggler').click()
+  handleNavbar = () => {
+    document.getElementById('navToggler').click()
   }
 
-  
+
   render() {
     return (
       <>
@@ -99,15 +111,27 @@ class NavBar extends Component {
               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/" >Home</Link>
               </li>
+
               {
-
-                this.navCat = this.state.genres.map((ele) => {
-                  return (<li className="nav-item" key={ele}>
-                    <Link className="nav-link" to={ele} >{ele}</Link>
-                  </li>)
-                })
-
+                this.navCat = this.state.genres.slice(0, 4).map((ele) =>
+                (
+                  <li className="nav-item" key={ele}>
+                    <Link className="nav-link" to={encodeURIComponent(ele)} >{ele}</Link>
+                  </li>))
               }
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Others
+                </a>
+                <ul className="dropdown-menu drop-btn" >
+                  {this.state.genres.slice(4).map((ele) =>
+                  (
+                    <li className="" key={ele}>
+                      <Link className="dropdown-item" to={encodeURIComponent(ele)} >{ele}</Link>
+                    </li>))}
+                </ul>
+              </li>
+
               <li className="nav-item">
                 <Link className="nav-link " to="/Subscribe" >Subcribe</Link>
               </li>
@@ -119,16 +143,17 @@ class NavBar extends Component {
               </li>
 
             </ul>
-            <div className='search-form ms-auto'>
 
-              <input className='form-control mx-2 ' id='search-type' type="search" value={this.state.word} onChange={this.inputHandler} placeholder='Title/Author/Publisher' aria-label='Search' />
-              <button className='btn btn-outline-success my-1 mx-2 white' onClick={this.submit} type='submit'>Search</button>
+            <div className='search-form ms-auto'>
+              <input className='form-control mx-2  rounded-pill' id='search-type' type="search" value={this.state.word} onChange={this.inputHandler} placeholder='Title/Author/Publisher' aria-label='Search' />
+              <button className='btn btn-success my-1 mx-2 white' onClick={this.submit} type='submit'>Search</button>
 
             </div>
 
           </div>
 
         </nav>
+
         <Outlet />
       </>
     )

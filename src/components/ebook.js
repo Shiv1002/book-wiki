@@ -6,29 +6,34 @@ import noImage from './BookThumbnail/No Image.jpg'
 
 function Ebook({ ebook }) {
   // only for one comp
-  var imgSrc =  noImage
+  var imgSrc = noImage
 
-  const [imgUrl,setUrl] = useState(noImage);
+  const [imgUrl, setUrl] = useState(ebook.image_url);
   useEffect(() => {
-    try{
-      let url = process.env.REACT_APP_SERVER+"images/";     
-       imgSrc = url+ebook.Thumbnail;
-       setUrl(imgSrc);    
-    }catch(e){      
-      console.log(e)
+    console.log("ebook is loaded")
+    const imageUrl = ebook.image_url;
+    const img = new Image();
+
+    img.onload = function () {
+      console.log('The image is working.');
     }
-  
-    
+
+    img.onerror = function () {
+      setUrl(imgSrc);
+    }
+
+    img.src = imageUrl;
+
   }, [])
-  
- 
+
+
   return (
     // container bg-light font-link
     <div id='thumbContainer' className='my-3 mx-3 thumbContainer'  >
-      <Link to={`/book/${ebook.srno - 1}`} >
+      <Link to={`/book/${ebook.id}`} >
         <div>
-           <img crossOrigin="anonymous" className="img"  src={imgUrl} alt="Image" />
-        </div>       
+          <img className="img" src={imgUrl} alt="Image" />
+        </div>
       </Link>
       <Outlet />
     </div>
@@ -43,10 +48,6 @@ function Ebook({ ebook }) {
     //   <a href="https://www.goodreads.com/book/show/1885.Pride_and_Prejudice?ac=1&from_search=true&qid=qvieLlISY0&rank=2" > <button className='btn btn-outline-success  me-2' >Sources</button> </a>
     //   </div>
     // </div> */}
-
-
-
-
 
   )
 }
