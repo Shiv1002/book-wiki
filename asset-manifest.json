@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/book-wiki/static/css/main.e1df5226.css",
-    "main.js": "/book-wiki/static/js/main.340833d5.js",
+    "main.css": "/book-wiki/static/css/main.99f3da6c.css",
+    "main.js": "/book-wiki/static/js/main.5ba67312.js",
     "static/js/787.5480e000.chunk.js": "/book-wiki/static/js/787.5480e000.chunk.js",
     "static/media/No Image.jpg": "/book-wiki/static/media/No Image.cd4b77d13e7dfb1cfe59.jpg",
     "static/media/twitter-logo.png": "/book-wiki/static/media/twitter-logo.6208f93b69e5b1ed000d.png",
     "static/media/google-logo.png": "/book-wiki/static/media/google-logo.49eda5baf38c81b402f5.png",
     "index.html": "/book-wiki/index.html",
-    "main.e1df5226.css.map": "/book-wiki/static/css/main.e1df5226.css.map",
-    "main.340833d5.js.map": "/book-wiki/static/js/main.340833d5.js.map",
+    "main.99f3da6c.css.map": "/book-wiki/static/css/main.99f3da6c.css.map",
+    "main.5ba67312.js.map": "/book-wiki/static/js/main.5ba67312.js.map",
     "787.5480e000.chunk.js.map": "/book-wiki/static/js/787.5480e000.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e1df5226.css",
-    "static/js/main.340833d5.js"
+    "static/css/main.99f3da6c.css",
+    "static/js/main.5ba67312.js"
   ]
 }
