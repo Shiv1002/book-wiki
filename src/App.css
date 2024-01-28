@@ -49,3 +49,13 @@
     text-emphasis-style: inherit;
     text-shadow: 4px 3px 7px black;
 }
+.authError{
+  color: red;
+}
+.user-logo{
+  position:absolute;
+  z-index: 3;
+  top:1rem;
+  right: 1rem;
+  
+}

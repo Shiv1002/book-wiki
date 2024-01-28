@@ -1,317 +1,265 @@
-import React, { Component } from "react";
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
-import { gapi } from 'gapi-script'
-import FacebookLogin from 'react-facebook-login';
-import urls from "./BaseUrls";
-import './bookcontainer.css'
-import googleLogo from "./logo/google-logo.png"
-import twitterLogo from "./logo/twitter-logo.png"
-import facebookLogo from "./logo/facebook-logo.png"
-import { LoginSocialFacebook } from "reactjs-social-login";
-import { FacebookLoginButton } from "react-social-login-buttons";
-import { LoginSocialTwitter ,} from "reactjs-social-login";
-import { TwitterLoginButton } from "react-social-login-buttons";
-class Subcribers extends Component {
-    constructor() {
-        super()
-        var setcount = 0;
-        this.state = {
-            count: setcount,
-            email: '',
-            password: '',
-            clientId: '970428558790-ffr69jngr3odgddnb8043sdn6pii1cd2.apps.googleusercontent.com',
+import React, { useState } from "react";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import "./bookcontainer.css";
+import auth from "./firebase";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import axios from "axios";
+
+function Subcribers({ user, setUser }) {
+  const [state, setState] = useState({
+    emailError: "",
+    passError: "",
+    email: "",
+    password: "",
+  });
+
+  const login = useGoogleLogin({
+    onSuccess: (userCredential) => fetchUserData(userCredential),
+    onError: (err) => console.log(err),
+    onNonOAuthError: (e) => console.log(e),
+  });
+
+  function cleanInputs() {}
+
+  const handleInput = (e) => {
+    setState({ emailError: "", passError: "" });
+    setState({ [e.target.name]: e.target.value }, () =>
+      console.log(e.target.name, e.target.value)
+    );
+  };
+
+  function fetchUserData(userCredential) {
+    axios
+      .get("https://www.googleapis.com/oauth2/v1/userinfo", {
+        headers: { Authorization: `Bearer ${userCredential.access_token}` },
+      })
+      .then((d) => console.log(d))
+      .catch((e) => console.log(e));
+  }
+
+  function signInWithFirebase(e) {
+    // e.preventDefault()
+    signInWithEmailAndPassword(auth, state.email, state.password)
+      .then((userCred) => {
+        console.log(userCred.user.uid);
+        //set user
+        setUser(userCred.user.email);
+        localStorage.setItem("loginEmail", userCred.user.email);
+        cleanInputs();
+      })
+      .catch((err) => {
+        console.log(err);
+        switch (err.code) {
+          case "auth/invalid-email":
+            setState({ emailError: "Invalid Email" });
+            break;
+          case "auth/user-disabled":
+            console.log("Permission blocked");
+            break;
+          case "auth/user-not-found":
+            setState({ emailError: "No account found" });
+            break;
+          case "auth/wrong-password":
+            setState({ passError: "Wrong password" });
+            break;
+          default:
         }
-    }
+      });
+  }
 
+  function signUpWithFireBase() {
+    createUserWithEmailAndPassword(auth, state.email, state.password)
+      .then((userCred) => {
+        console.log("creating user", userCred.user.uid);
+        //setUser
+        setUser(userCred.user.email);
+        cleanInputs();
+      })
+      .catch((err) => console.log(err));
+  }
 
-    static getDerivedStateFromProps(props, state) {
+  const handleSuccess = (googledata) => {
+    // setState({ email: googledata.profileObj.email });
+    // localStorage.setItem("loginName", googledata.profileObj.name);
+    // localStorage.setItem("loginEmail", googledata.profileObj.email);
+    // localStorage.setItem("imageUrl", googledata.profileObj.imageUrl);
+    console.log(googledata);
+  };
 
-        // The getDerivedStateFromProps() method is called right before rendering the element(s) in the DOM.
-        // This is the natural place to set the state object based on the initial props.        //
-        // It takes state as an argument, and returns an object with changes to the state.
-        // returns a state with chenge in object due to props
-        // this is undefined    
+  function handleLogout() {
+    setUser();
+    console.log("Logged out successfully");
+    cleanInputs();
+    localStorage.setItem("loginName", "");
+    localStorage.setItem("loginEmail", "");
+    localStorage.setItem("imageUrl", null);
+  }
 
-        return null
-    }
+  return (
+    <div className="login">
+      <form onSubmit={(e) => e.preventDefault()}>
+        <div>
+          {/* working */}
+          <table>
+            {!state.email ? (
+              <tbody>
+                <tr>
+                  <th>
+                    <h2>Login</h2>
+                  </th>
+                </tr>
 
-    start(client) {
-        // here state cannot be used
-        try {
-            gapi.client.init({ clientId: client, scope: '' })
-        } catch (err) {
-            console.log(err);
-        }
+                <tr>
+                  <td>
+                    <input
+                      className="form-control user"
+                      name="email"
+                      type="email"
+                      id="email"
+                      placeholder="Enter Email Address here!"
+                      value={state.email}
+                      onChange={(e) => handleInput(e)}
+                    />
+                  </td>
+                  {state.emailError ? (
+                    <td>
+                      <span className="authError">{state.emailError}</span>
+                    </td>
+                  ) : (
+                    <></>
+                  )}
+                </tr>
 
-    }
+                <tr>
+                  <td>
+                    <input
+                      className="form-control user"
+                      name="password"
+                      type="password"
+                      id="pwd"
+                      placeholder="Enter Password here!"
+                      value={state.password}
+                      onChange={handleInput}
+                    />
+                  </td>
+                  {state.passError ? (
+                    <td>
+                      <span className="authError">{state.passError}</span>
+                    </td>
+                  ) : (
+                    <></>
+                  )}
+                </tr>
+                <tr>
+                  <td className="py-0">
+                    <p className="labels align-center mx-2 my-2">
+                      By signing up you accept our&nbsp;
+                      <a className="" href="#">
+                        Terms Of Use
+                      </a>
+                    </p>
+                  </td>
+                </tr>
 
-    async componentDidMount() {
-        // The componentDidMount() method is called after the component is rendered.
-        // This is where you run statements that requires when the component is already placed in the DOM
+                <tr>
+                  <td>
+                    <button
+                      className="buttn "
+                      type="submit"
+                      onClick={(e) => signInWithFirebase(e)}
+                    >
+                      login
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button
+                      className="buttn "
+                      type="submit"
+                      onClick={() => signUpWithFireBase()}
+                    >
+                      sign up
+                    </button>
+                  </td>
+                </tr>
 
-        var getCount = 0
-        //fetching all users
-        // const res = await fetch(urls.users)
-        // const users = await res.json()
-        // //json is users
-        // getCount = users.length
-        // console.log("Total Subsciber we have ", getCount)
-        console.log("componentDidMount called")
-
-        this.setState({
-            // count: getCount,
-            email: localStorage.getItem('loginEmail')
-        })
-        localStorage.setItem('count', this.state.count)
-        console.log("Email On Load", this.setState.email)
-
-        //
-        try {
-            gapi.load('client:auth2', this.start(this.state.clientId));
-        } catch (err) { console.log(err) }
-
-    }
-
-    // shouldComponentUpdate(nextprops, nextstate) {
-    //     //    if this.state is same as nextstate then return false
-    //     //    console.log("IN shouls update component",this.state,nextstate)
-    //     return true
-    // }
-    // getSnapshotBeforeUpdate(prevProps, prevState) {
-    //     //    console.log("IN getsnapshot")
-    //     return null
-    // }
-    componentDidUpdate(prevProps, prevState, Snapshot) {
-        if (prevState.count === this.state.count - 1) {
-            document.getElementById('email').value = ""
-            document.getElementById('pwd').value = ""
-        }
-        console.log("componentDidUpdate called!!!")
-    }
-
-    addsub() {
-        this.setState(
-            // here put 1 to zero to reset
-            { count: this.state.count + 1 }, () => {
-                localStorage.setItem('count', this.state.count)
-                console.log(this.state.count)
-            }
-        )
-    }
-
-    handleEmail = (e) => {
-        this.setState({
-            email: e.target.value
-        }
-        )
-    }
-    changePass = (event) => {
-        this.setState({
-            password: event.target.value
-        }
-        )
-    }
-
-    Submit = (event) => {
-        event.preventDefault()
-        const check = this.validator()
-        if (check) {
-            console.log("In submit")
-            localStorage.setItem('count', this.state.count)
-            // localStorage.setItem('loginName',this.state.email)
-            console.log(`${this.state.email} is subcriber no - ${this.state.count}`)
-        }
-        else {
-            console.log("Invalid Email or Password!!")
-            return
-        }
-
-        const data = { "postID": this.state.count, "email": this.state.email, "password": this.state.password }
-
-        console.log("posting data")
-
-        //fetching users
-        fetch(urls.users, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
-
-    }
-
-    validator() {
-        console.log("In validator")
-        var value = false
-        if (((this.state.email !== '') && (this.state.password !== ''))) {
-            value = true
-        }
-        return value
-    }
-    handleSuccess = (googledata) => {
-
-        this.setState({ email: googledata.profileObj.email })
-        localStorage.setItem('loginName', googledata.profileObj.name)
-        localStorage.setItem('loginEmail', googledata.profileObj.email)
-        localStorage.setItem('imageUrl', googledata.profileObj.imageUrl)
-        console.log(googledata)
-    }
-    handleFail = (error) => { console.log(error) }
-
-    async getUser() {
-        const res = await fetch("/api/users")
-        const json = await res.json()
-        console.log(json)
-    }
-    hS = () => {
-        console.log("Logged out successfully")
-        this.setState({ email: "" })
-        localStorage.setItem('loginName', "")
-        localStorage.setItem('loginEmail', "")
-        localStorage.setItem('imageUrl', null)
-    }
-    render() {
-        return (
-
-            <div className="login">
-
-                <form onSubmit={this.Submit}>
-                    <div >
-                        {/* working */}
-                        <table>
-
-                            {
-                                !localStorage.getItem('loginName') || !localStorage.getItem('loginEmail') ? (
-                                    <tbody>
-                                        <tr><th><h2>Login</h2></th></tr>
-
-                                        <tr>
-                                            <td>
-                                                <input className='form-control user' type='email' id="email" placeholder="Enter Email Address here!" value={this.state.email} onChange={this.handleEmail} />
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <input className='form-control user' type='password' id="pwd" placeholder="Enter Password here!" value={this.state.password} onChange={this.changePass} />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="py-0">
-                                                <p className="labels align-center mx-2 my-2">By signing up you accept our&nbsp;<a className="" href="#">Terms Of Use</a></p>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <button className="buttn " type="submit" onClick={() => {
-                                                    const check = this.validator()
-                                                    if (check) {
-                                                        this.addsub()
-
-                                                    }
-                                                }}>LOGIN</button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td className="py-0">
-                                                <div className="col-md-12">
-                                                    <div className="login-or">
-                                                        <hr className="hr-or" />
-                                                        <span className="span-or">or Signup with</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><div id="logo" className="d-flex">
-                                                <GoogleLogin
-                                                    clientId={this.state.clientId}
-                                                    render={renderProps => (
-                                                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                                                            <img src={googleLogo} alt="Google" />
-                                                        </button>
-                                                    )}
-                                                    isSignedIn={true}
-                                                    onSuccess={this.handleSuccess}
-                                                    onFailure={this.handleFail}
-                                                    cookiePolicy={'single_host_origin'}
-                                                >
-                                                </GoogleLogin>
-                                                <button><img src={facebookLogo} alt="facebook" />
-                                                    <LoginSocialFacebook
-                                                        appId={952930172374934}
-
-                                                        onReject={(err) => console.log(err)}
-                                                        onResolve={(res) => { console.log(res) }} >
-                                                        <FacebookLoginButton />
-                                                    </LoginSocialFacebook>
-                                                </button>
-
-                                                <button><img src={twitterLogo} alt="twitter" />
-                                                    <LoginSocialTwitter
-                                                        appId={26870406}
-                                                        callbackUrl="http://localhost:3000/book-wiki/Subscribe/callback"
-                                                        onLoginSuccess={(user)=>console.log(user)}
-                                                        onLoginFailure={console.error}
-                                                    >
-                                                        Login with Twitter
-                                                    </LoginSocialTwitter>
-                                                </button>
-
-                                            </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                )
-                                    : (
-                                        <tbody>
-
-                                            <tr>
-                                                <td className="User"><h3 className="my-0">{localStorage.getItem('loginName')}</h3></td>
-                                            </tr>
-                                            <tr>
-                                                <td className="User"><img id="emailImg" src={localStorage.getItem('imageUrl')} alt="" /> </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div id="logo">
-                                                        <GoogleLogout
-                                                            clientId={this.clientId}
-                                                            render={renderProps => (
-                                                                <button className="buttn bg-primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                                                                    LogOut
-                                                                </button>
-                                                            )}
-                                                            onLogoutSuccess={this.hS}
-
-                                                        >
-                                                        </GoogleLogout>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-                                        </tbody>
-                                    )
-                            }
-                        </table>
-
+                <tr>
+                  <td className="py-0">
+                    <div className="col-md-12">
+                      <div className="login-or">
+                        <hr className="hr-or" />
+                        <span className="span-or">or Signup with</span>
+                      </div>
                     </div>
-                </form>
-                {/* <button className="buttn" style={{ height: " 55px", width: "180px" }} onClick={() => this.getUser()}>Get Users</button> */}
-                <div>
-                    {/*this.state.count*/}
-                    {/* <h2><b><code>Subcribers - {this.state.count}</code></b></h2> */}
-                </div>
-            </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div id="logo" className="d-flex">
+                      <button onClick={() => login()}>Login</button>
 
-        )
-    }
+                      <button onClick={() => googleLogout()}>logout</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            ) : (
+              <tbody>
+                {localStorage.getItem("loginEmail") !== "" ? (
+                  <tr>
+                    <td className="User">
+                      <h3 className="my-0">
+                        You are logged in as{" "}
+                        {localStorage.getItem("loginEmail")}
+                      </h3>
+                    </td>
+                  </tr>
+                ) : (
+                  <></>
+                )}
+
+                {localStorage.getItem("imageUrl") !== "null" ? (
+                  <tr>
+                    <td className="User">
+                      <img
+                        id="emailImg"
+                        src={localStorage.getItem("imageUrl")}
+                        alt=""
+                      />
+                    </td>
+                  </tr>
+                ) : (
+                  <></>
+                )}
+
+                <tr>
+                  <td>
+                    <div id="logo">
+                      <button
+                        className="buttn bg-primary"
+                        onClick={handleLogout}
+                      >
+                        LogOut
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            )}
+          </table>
+        </div>
+      </form>
+      {/* <button className="buttn" style={{ height: " 55px", width: "180px" }} onClick={() => getUser()}>Get Users</button> */}
+      <div>
+        {/*state.count*/}
+        {/* <h2><b><code>Subcribers - {state.count}</code></b></h2> */}
+      </div>
+    </div>
+  );
 }
 
-export default Subcribers
+export default Subcribers;

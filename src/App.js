@@ -1,111 +1,117 @@
-import './App.css';
-import React from 'react';
-import { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom'
-import { CircularProgress } from '@mui/material';
-import NavBar from './components/Nav'
-import MainFrame from './components/Main';
-import Subcribers from './components/Subcribers';
-import ErrorPage from './components/ErrorPage';
-import BookDiscription from './components/BookDiscription';
-import AddBook from './components/addBook';
-import urls from './components/BaseUrls';
-
-const axios = require('axios');
-
+import "./App.css";
+import React from "react";
+import { useState, useEffect, useReducer, useMemo } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
+import NavBar from "./components/Nav";
+import MainFrame from "./components/Main";
+import Subcribers from "./components/Subcribers";
+import ErrorPage from "./components/ErrorPage";
+import BookDiscription from "./components/BookDiscription";
+import AddBook from "./components/addBook";
+import { initState, reducer } from "./components/Reducers/reducer";
+import { fetchAdventureBooks } from "./components/Actions/actions";
+import axios from "axios";
+import EbookList from "./components/EbookList";
+import SearchBookList from "./components/SearchBookList";
 
 function App() {
+  const genre = ["Adventure", "Fiction", "Horror", "Literature"];
+  const [state, dispatch] = useReducer(reducer, initState);
 
-  const [books, setBook] = useState([]);
-  const [genre, setGenre] = useState([])
   //using axios
 
   useEffect(() => {
-    //perform get request 
-    console.log("useEffect called")
-    axios.get(urls.books)
-      .then(res => { setBook(res.data); gatherGenresFromGenreList(res.data) })  // handle success    // response hold config, , data, headers request status statusText
-      .catch(error => console.log(error))
+    //perform get request
+
+    console.log("useEffect called");
   }, []);
 
-  let genreTabs = genre.map((ele) => {
-// console.log(encodeURIComponent(ele))
-    return (<Route path={encodeURIComponent(ele)} element={<MainFrame ebook={books} key={ele} genre={ele} />} />)
-  });
+  let genreTabs = useMemo(
+    () =>
+      genre.map((gen) => {
+        // console.log(ele)
+        console.log("Gen genres");
+        return (
+          <Route
+            path={encodeURIComponent(gen)}
+            key={gen}
+            element={
+              <EbookList
+                key={gen}
+                genre={gen}
+                state={state}
+                dispatch={dispatch}
+              />
+            }
+          />
+        );
+      }),
+    [state.books]
+  );
 
-  const gatherGenresFromGenreList = (list) => {
-    var listFrmData = list
-    var eachBookGenre = []
-    var newGenreList = {}
-    // convrting all genres in list.ele into a single name
-    listFrmData.map((ele) => {
-      var name = ""
-      var bookGenreList = []
-      for (var gen of ele.genre_list) {
+  return (
+    <>
+      <Router basename="/">
+        <Routes>
+          <Route element={<NavBar ebook={state.books} genre={genre} />}>
+            <Route
+              path="/"
+              element={<MainFrame state={state} dispatch={dispatch} />}
+            >
+              <Route
+                index
+                element={
+                  <EbookList
+                    key="Adventure"
+                    genre="Adventure"
+                    state={state}
+                    dispatch={dispatch}
+                  />
+                }
+              ></Route>
 
-        if (gen != ',') {
-          name += gen
+              {genreTabs}
 
-        } else {
-          if (newGenreList[name] == undefined) {
-            newGenreList[name] = 1
-          }
-          bookGenreList.push(name)
-          name = ""
-        }
-      }
-      eachBookGenre.push(bookGenreList);
-      // console.log(bookGenreList)
-    })
-    //setting all uniqe genres 
-    setGenre(Object.keys(newGenreList))
-    
-    // eeach books  genres list
-    // console.log(eachBookGenre)
-    // iterating over list and adding new ebook element with its own genre list as a list
-    var i = 0;
-    list = list.map((ele) => { ele.genre_list = eachBookGenre[i];i++; return ele })
-
-    // console.log("All gernes", Object.keys(newGenreList));
-    // list.map((ele) => { console.log(ele, "after") })
-
-    //set new ebooks datas with updated genre list
-    setBook(list)
-  }
-  if (books.length !== 0) {
-    return (<>
-      <Router basename='/book-wiki'>
-        <Routes >
-          <Route path='/' element={<NavBar ebook={books} genre={genre} />}>
-            <Route index element={<MainFrame ebook={books} genre="All" />} />
-
-            {genreTabs}
-
-            <Route path="Subscribe" element={<Subcribers />} />
-            <Route path="AddBook" element={<AddBook />} />
-            <Route path="book/:id" element={<BookDiscription ebook={books} />} />
+              <Route
+                path="search/:term"
+                element={
+                  <SearchBookList
+                    key="search"
+                    state={state}
+                    dispatch={dispatch}
+                  />
+                }
+              />
+              <Route
+                path="book/:id"
+                element={<BookDiscription ebook={state.books} />}
+              />
+            </Route>
+            <Route
+              path="Subscribe"
+              element={<Subcribers state={state} dispatch={dispatch} />}
+            />
+            {/* <Route path="AddBook" element={<AddBook />} /> */}
           </Route>
-          <Route path='*' element={<ErrorPage />}></Route>
+
+          <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
+        <div className="user-logo bg-black rounded">
+          {/* {state.user.email ? (
+            <span className="text-light">{state.user.email}</span>
+          ) : (
+            <Link
+              className="btn text-light fw-semibold rounded-2 fs-5 shadow-none"
+              to="/Subscribe"
+            >
+              Login
+            </Link>
+          )} */}
+        </div>
       </Router>
-
-    </>)
-  } else {
-    return (
-      <div className='load'  >
-        <CircularProgress style={{ color: "#146bec" }} />
-        {/* <h3>Loading...</h3> */}
-      </div>
-
-    )
-  }
-
-
-
+    </>
+  );
 }
 
 export default App;
