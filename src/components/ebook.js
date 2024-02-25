@@ -3,65 +3,155 @@ import { Link } from "react-router-dom";
 import "./bookcontainer.css";
 import { EyeIcon, HeartIcon, RedHeartIcon, CartIcon } from "./Layout/icons.js";
 import noImage from "./BookThumbnail/No Image.jpg";
+import Ratings from "./Layout/ratingStars.js";
 
 function Ebook({ ebook }) {
   const [isLiked, setIsLiked] = useState(false);
+  // console.log(ebook);
+  const book = ebook.volumeInfo;
   return (
     <>
       <div
-        id="thumbContainer "
-        className="my-3 mx-3 thumbContainer position-relative "
+        id="thumbContainer"
+        className="my-3 mx-3 thumbContainer position-relative d-flex flex-column rounded-4"
       >
         {/* hoverd element */}
-        <div className="position-absolute thumbContainerHover bg-light rounded-4 rounded-bottom border border-dark border-bottom-0 d-flex">
-          <div
-            className=" rounded-end rounded-bottom rounded-4"
-            onClick={(eve) => {
-              setIsLiked((val) => !val);
-            }}
-          >
-            <span className="">
-              {isLiked ? (
-                <RedHeartIcon height="1.5rem" width="1.5rem" color="" />
-              ) : (
-                <HeartIcon height="1.5rem" width="1.5rem" color="" />
-              )}
-            </span>
-          </div>
 
-          <Link to={`/book/${ebook.id}`}>
-            <div className="border-end border-dark border-start middle ">
-              <EyeIcon height="1.5rem" width="1.5rem" color="" />
-            </div>
-          </Link>
-
-          <div className="rounded-start rounded-bottom rounded-4">
-            <CartIcon height="1.5rem" width="1.5rem" color="" />
-          </div>
-        </div>
-        <div className="imageblock position-relative border border-dark bg-dark rounded-top rounded-4">
+        <div className="h-100 imageblock   rounded-top rounded-4 d-flex flex-column overflow-hidden ">
           <img
-            className="img"
-            src={
-              ebook.volumeInfo.imageLinks
-                ? ebook.volumeInfo.imageLinks.thumbnail
-                : noImage
-            }
-            alt={ebook.name}
+            className="w-100 h-75 img z-index-0"
+            src={book.imageLinks ? book.imageLinks.thumbnail : noImage}
+            alt={book.title}
+            title={book.title}
           />
+          <div className="bg-transparent  position-relative flex-grow-1 d-flex flex-column text-center pt-2 fw-normal text-white">
+            <div className="d-flex flex-column  p-2">
+              <span className="text-overflow-ellipsis flex-grow-1 font-link">
+                <strong>
+                  {book.title} ({book.publishedDate})
+                </strong>
+              </span>
+              <span>
+                Rating:
+                {book.averageRating ? (
+                  <span>
+                    {" "}
+                    <Ratings rating={book.averageRating} />
+                  </span>
+                ) : (
+                  <span>N/A</span>
+                )}
+              </span>
+            </div>
+
+            <div
+              // style={{ height: "1rem" }}
+              className="ebook-icons mt-auto   d-flex align-items-center justify-content-between  "
+            >
+              <div
+                className="flex-grow-1 text-center "
+                onClick={(eve) => {
+                  setIsLiked((val) => !val);
+                }}
+                title="add to favorites"
+              >
+                <span className="icon-box border border-2 border rounded-circle p-2">
+                  {isLiked ? (
+                    <RedHeartIcon height="1.5rem" width="1.5rem" fill="red" />
+                  ) : (
+                    <HeartIcon height="1.5rem" width="1.5rem" fill="white" />
+                  )}
+                </span>
+              </div>
+              <div className=" flex-grow-1 p-2" title="details">
+                <Link
+                  to={`/book/${ebook.id}`}
+                  className="icon-box border-2 border rounded-circle p-2 "
+                >
+                  <EyeIcon height="1.5rem" width="1.5rem" fill="white" />
+                </Link>
+              </div>
+              <div className="flex-grow-1 text-center" title="check out!">
+                <Link
+                  to={book.infoLink}
+                  className="icon-box border-2 border rounded-circle p-2"
+                >
+                  <CartIcon height="1.5rem" width="1.5rem" fill="white" />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {/* <Outlet /> */}
     </>
 
-    // {/* <div className='mx-2'> <h4 >{index + 1}.</h4> </div> */}
-    // {/* <div className='bookTitle d-flex-col mx-3 my-2'>
-    //  <span> <a id='booktitle' href={ebook.link} target='_blank'>{ebook.Name}</a></span><span>by {ebook.Author}</span>
-    //   <div className=''>
-    //   <p align='justify'>{ebook.Description}</p>
-    //   <a href="https://www.goodreads.com/book/show/1885.Pride_and_Prejudice?ac=1&from_search=true&qid=qvieLlISY0&rank=2" > <button className='btn btn-outline-success  me-2' >Sources</button> </a>
-    //   </div>
-    // </div> */}
+    // {
+    //   "kind": "books#volume",
+    //   "id": "7GUkAQAAMAAJ",
+    //   "etag": "9OoXGSLUPgI",
+    //   "selfLink": "https://www.googleapis.com/books/v1/volumes/7GUkAQAAMAAJ",
+    //   "volumeInfo": {
+    //       "title": "The House of Arden",
+    //       "subtitle": "A Story for Children",
+    //       "authors": [
+    //           "Edith Nesbit"
+    //       ],
+    //       "publisher": "Puffin Books",
+    //       "publishedDate": "1986",
+    //       "description": "Young Edred Arden and his sister Elfrida have inherited Arden Castle, but they will loose it forever unless they can find the long-lost treasure of the Ardens before Edred's birthday. With the aid of the Mouldiwarp of Arden -- a tempermental but magical golden-furred mole -- they travel back thorugh time to Tudor, Stuart and Napoleonic days to search for the missing treasure.",
+    //       "industryIdentifiers": [
+    //           {
+    //               "type": "OTHER",
+    //               "identifier": "UOM:39076000967468"
+    //           }
+    //       ],
+    //       "readingModes": {
+    //           "text": false,
+    //           "image": false
+    //       },
+    //       "pageCount": 260,
+    //       "printType": "BOOK",
+    //       "categories": [
+    //           "Adventure"
+    //       ],
+    //       "maturityRating": "NOT_MATURE",
+    //       "allowAnonLogging": false,
+    //       "contentVersion": "0.2.2.0.preview.0",
+    //       "panelizationSummary": {
+    //           "containsEpubBubbles": false,
+    //           "containsImageBubbles": false
+    //       },
+    //       "imageLinks": {
+    //           "smallThumbnail": "http://books.google.com/books/content?id=7GUkAQAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+    //           "thumbnail": "http://books.google.com/books/content?id=7GUkAQAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+    //       },
+    //       "language": "en",
+    //       "previewLink": "http://books.google.co.in/books?id=7GUkAQAAMAAJ&dq=subject:Adventure&hl=&cd=40&source=gbs_api",
+    //       "infoLink": "http://books.google.co.in/books?id=7GUkAQAAMAAJ&dq=subject:Adventure&hl=&source=gbs_api",
+    //       "canonicalVolumeLink": "https://books.google.com/books/about/The_House_of_Arden.html?hl=&id=7GUkAQAAMAAJ"
+    //   },
+    //   "saleInfo": {
+    //       "country": "IN",
+    //       "saleability": "NOT_FOR_SALE",
+    //       "isEbook": false
+    //   },
+    //   "accessInfo": {
+    //       "country": "IN",
+    //       "viewability": "NO_PAGES",
+    //       "embeddable": false,
+    //       "publicDomain": false,
+    //       "textToSpeechPermission": "ALLOWED",
+    //       "epub": {
+    //           "isAvailable": false
+    //       },
+    //       "pdf": {
+    //           "isAvailable": false
+    //       },
+    //       "webReaderLink": "http://play.google.com/books/reader?id=7GUkAQAAMAAJ&hl=&source=gbs_api",
+    //       "accessViewStatus": "NONE",
+    //       "quoteSharingAllowed": false
+    //   }
+    // }
   );
 }
 

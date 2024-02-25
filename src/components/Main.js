@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import KUTE from "kute.js";
 import "./svg/wave-haikei.svg";
@@ -18,7 +18,8 @@ const MainPage = ({ state, dispatch }) => {
     );
 
     // Start the animation
-    animation.start();
+    setTimeout(() => animation.start(), 500);
+    // animation.start();
   }, []);
 
   const searchBooks = (event) => {
@@ -93,6 +94,7 @@ const MainPage = ({ state, dispatch }) => {
         </svg>
       </div>
       {/* <EbookList isLoading={isLoading} booklist={booklist} {...props} /> */}
+
       <Outlet />
     </>
   );

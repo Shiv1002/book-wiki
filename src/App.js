@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { Suspense } from "react";
 import { useState, useEffect, useReducer, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
@@ -57,7 +57,11 @@ function App() {
           <Route element={<NavBar ebook={state.books} genre={genre} />}>
             <Route
               path="/"
-              element={<MainFrame state={state} dispatch={dispatch} />}
+              element={
+                <Suspense fallback={<h1 className="fs-1">h2lllll</h1>}>
+                  <MainFrame state={state} dispatch={dispatch} />
+                </Suspense>
+              }
             >
               <Route
                 index
@@ -94,8 +98,7 @@ function App() {
             />
             {/* <Route path="AddBook" element={<AddBook />} /> */}
           </Route>
-
-          <Route path="*" element={<ErrorPage />}></Route>
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
         <div className="user-logo bg-black rounded">
           {/* {state.user.email ? (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { CircularProgress } from "@mui/material";
 import Header from "./header";
 import Ebook from "./ebook";
@@ -35,7 +35,7 @@ export default function EbookList({ genre, state, dispatch }) {
 
   return (
     <div className="row">
-      <div className="col position-absolute [bg-primary]">
+      <div className="col position-absolute [bg-primary] w-100">
         {isLoading ? (
           <div className="text-center my-5">
             <CircularProgress style={{ color: "#fff" }} />
@@ -44,12 +44,15 @@ export default function EbookList({ genre, state, dispatch }) {
         ) : booklist.length > 0 ? (
           <>
             <Header title={genre} total={booklist.length} />
+
             <div className="d-flex flex-wrap justify-content-center">
               {booklist}
             </div>
           </>
         ) : (
-          <div>No Books found</div>
+          <div className="d-flex justify-content-center text-white fs-2 fw-normal">
+            <span className="">No Books found!!</span>
+          </div>
         )}
       </div>
     </div>

@@ -1,7 +1,20 @@
+
 body {
     height: 90vh;
     background: url('./logo/bg.jpg') repeat center center;
     background-size: cover;
+    transition: all 0.8s;
+    font-family: 'Radio Canada', sans-serif ;
+}
+
+
+.cabin-normal {
+  font-family: "Cabin", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
 
 #root {
@@ -11,6 +24,12 @@ body {
 #search-type { 
     width: 100%;
     outline: none !important;
+}
+
+.text-overflow-ellipsis{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
 }
 
 .font-link {
@@ -61,30 +80,27 @@ body {
 }
 
 .img {
-    height: 22rem;
+    
     box-sizing: border-box;
-    width: 100%;
     border-radius: 0pc 0pc 1rem 1rem;
+    
 }
 
-.thumbContainer {
+#thumbContainer {
     box-sizing: border-box;
     padding: 5px;
-    width: 15rem;
-    max-width: 15rem;
+    aspect-ratio: 5/10;
+    height: 30rem;
+    
 }
 
-.thumbContainer div {
-    /* box-shadow: -5px -5px 0px 2px #fffb00f0, -9px -9px 0px 2px #4853ff, -13px -13px 0px 2px #03951c, -17px -17px 0px 2px #2c4e32; */
-    padding: 0px;
-    transition: all 0.8s;
 
+
+.thumbContainer:hover {
+    background-color: #00000035;
 }
 
-.thumbContainer div:hover {
-    box-shadow: none;
-    /* transform: rotate3d(0, 0.1, 0, 0.2turn); */
-}
+
 
 .cool:hover {
     background-color: rgb(226, 234, 232);
@@ -253,7 +269,7 @@ input.user:placeholder-shown {
 
     padding: 10px 0;
     width: 100%;
-    margin: -2px 0;
+    margin: -10px 0;
     overflow: hidden;
 }
 
@@ -400,10 +416,7 @@ a {
     color: red;
 }
 
-.thumbContainer:hover .imageblock {
-    
-    transform: translate(0, 8%);
-}
+
 
 .thumbContainer:hover .thumbContainerHover {
     transform: translate(0, -50%);

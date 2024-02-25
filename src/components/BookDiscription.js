@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import noImage from "./BookThumbnail/No Image.jpg";
+import Ratings from "./Layout/ratingStars";
 function BookDiscription({ ebook }) {
   let { id } = useParams();
   console.log(ebook.length);
@@ -16,8 +17,7 @@ function BookDiscription({ ebook }) {
   // Thumbnail: ""
   // link: "https://www.goodreads.com/book/show/1885.Pride_and_Prejudice?ac=1&from_search=true&qid=qvieLlISY0&rank=2"
   // srno: 1
-  const fullstar = "\u2605"; // Unicode character code for a filled star
-  const emptyStar = "\u2606";
+
   // const halfstar = '\u2BEA'
 
   const imageError = (event) => {
@@ -91,10 +91,7 @@ function BookDiscription({ ebook }) {
                   <strong>Rating</strong>:
                   <span>
                     {currBook.averageRating !== undefined ? (
-                      <span style={{ color: "gold", fontSize: "large" }}>
-                        {fullstar.repeat(Math.round(currBook.averageRating))}
-                        {emptyStar.repeat(5 - currBook.averageRating)}{" "}
-                      </span>
+                      <Ratings rating={currBook.averageRating} />
                     ) : (
                       " No Ratings"
                     )}
