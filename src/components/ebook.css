@@ -1,0 +1,47 @@
+
+#thumbContainer {
+    box-sizing: border-box;
+    padding: 5px;
+    aspect-ratio: 5/10;
+    height: 30rem;
+    
+  }
+  
+  
+  .thumbContainer:hover {
+    background-color: #00000035;
+  }
+
+  .text-overflow-ellipsis{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+  }
+  .thumbContainer:hover .thumbContainerHover {
+    transform: translate(0, -50%);
+  }
+
+  
+.thumbContainerHover {
+    z-index: 0 !important;
+    font-size: medium;
+    width: 96%;
+    box-sizing: border-box;
+  
+  }
+  
+  .thumbContainerHover div {
+    box-sizing: border-box;
+    padding: 1rem;
+    flex-grow: 1;
+    text-align: center;
+  
+  }
+  
+  .thumbContainerHover div:hover {
+    background-color: #f643ff89;
+  }
+  
+  .thumbContainerHover * {
+    transition: all 0.2s;
+  }

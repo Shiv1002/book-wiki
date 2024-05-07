@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
-import Header from "./header";
+import Header from "./CategoryHeader";
 import Ebook from "./ebook";
 import { fetchGenreBooks, fetchSearchBooks } from "./Actions/actions";
 import { useParams } from "react-router-dom";

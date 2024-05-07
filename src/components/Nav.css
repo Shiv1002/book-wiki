@@ -1,0 +1,37 @@
+
+.navbar {
+    position: relative;
+    font-weight: 600;
+    min-width: fit-content;
+    background: linear-gradient(90deg, #020202, #a50097);
+    padding: 9px;
+    min-height: 4.5rem;
+    justify-content: center;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  
+  .nav-item:hover {
+    color: #ffffff;
+  }
+  
+  .nav-pills .nav-link {
+    color: #ffffff;
+    font-size: large;
+    text-align: center;
+    margin: 5px 5px;
+  }
+  
+
+  .nav-pills .nav-link:active {
+    transform: scale(0.92) !important;
+    
+  }
+  .nav-link:focus{
+    color: rgb(195, 195, 195) !important;
+    scale: 1.3;
+  }
+  
+  .nav-pills .nav-link:hover {
+    background-color: white;
+    color: #1b1d21;
+  }

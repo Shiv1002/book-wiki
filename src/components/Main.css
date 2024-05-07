@@ -1,0 +1,35 @@
+.search-form-group:hover {
+    color: #6eb700;
+  }
+
+  #search-type { 
+    width: 100%;
+    outline: none !important;
+  }
+  
+  .search-form {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 25rem;
+    background: linear-gradient(90deg, #020202, #a50097);
+    /* border-radius: 0 0 25% 0; */
+  
+    padding: 10px 0;
+    width: 100%;
+    margin: -10px 0;
+    overflow: hidden;
+  }
+  
+  .searchBarSvg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    margin-bottom: -40vw;
+  }
+  
+  .search-form-group {
+    width: 60%;
+    padding: 1rem;
+  }
+  

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
-import Header from "./header";
+import Header from "./CategoryHeader";
 import Ebook from "./ebook";
 import { fetchGenreBooks } from "./Actions/actions";
 export default function EbookList({ genre, state, dispatch }) {
   const booklist = state.books
     .filter(
       (book) =>
-        book.volumeInfo.maturityRating == "NOT_MATURE" &&
+        book.volumeInfo.maturityRating === "NOT_MATURE" &&
         book.volumeInfo.imageLinks
     )
     .map((book) => <Ebook key={book.id} ebook={book} />);
@@ -21,11 +21,11 @@ export default function EbookList({ genre, state, dispatch }) {
         console.log(data);
         dispatch({ type: "setBooks", payload: data });
         // onPropsChange(data);
-        setIsLoading(false);
       })
-      .catch((e) => console.log(e));
-
-    setIsLoading(false);
+      .catch((e) => console.log(e))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
   //
 

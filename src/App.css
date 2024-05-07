@@ -1,61 +1,268 @@
-.App {
-  text-align: center;
-  height: 100vh;
+@font-face {
+  font-family: "Sedan-regular";
+  src: url('../public/fonts/SedanSC-Regular.ttf')  format('truetype');
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root {
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+body{
+  font-family: 'Sedan-regular' !important;
+  font-weight: 400;
+  font-style: normal;
+  height: 90vh;
+    background: url('./components/logo/bg.jpg') repeat center center;
+    background-size: cover;
+    transition: all 0.8s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+
+
+
+.text-overflow-ellipsis{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+
+
+.bookTitle a {
+  font-size: large;
+  margin-right: 10px;
+}
+
+.bookTitle {
+  font-size: medium;
+}
+
+.cool {
+  font-size: small;
+  height: min-content;
+  max-height: 50vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: auto;
+  border-radius: 40px;
+  padding: 10px 2px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start,
+
+}
+
+.cool::-webkit-scrollbar {
+  display: none;
+}
+
+.cool::-webkit-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container {
+  width: 80%;
+  margin: 10px auto;
+  max-width: -webkit-fill-available;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 0px 5px 0px #00000085;
+}
+
+.img {
+  box-sizing: border-box;
+  border-radius: 0pc 0pc 1rem 1rem;
+  
+}
+
+
+
+
+.cool:hover {
+  background-color: rgb(226, 234, 232);
+  border-radius: 20px;
+}
+
+p {
+  height: auto;
+  width: auto;
+  margin: 0.5rem 0 !important;
+}
+
+#list-num-header {
+  color: #000000;
+}
+input.user:placeholder-shown {
+}
+
+
+.align-center {
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+.buttn {
+  height: 50px;
+  width: 87%;
+  background-color: #0d6dfd;
+  color: rgb(236, 255, 255);
+  font-size: large;
+  border-radius: 40px;
+  border-color: rgb(0, 145, 255);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.buttn:hover {
+  background-color: #0d5391;
+}
+
+.white {
+  color: #ffffff;
+  font-size: large;
+}
+
+
+
+.nav-heading {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-heading-1 {
+  font-size: 3.4rem;
+  font-weight: bolder;
+
+}
+
+.nav-heading-2 {
+  align-self: auto;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+}
+
+
+table a {
+  color: #0d6dfddf;
+}
+
+
+
+.user-logo {
+  font-weight: 600;
+}
+
+.User {
+  font-size: large;
+  margin: -5px;
+}
+
+#emailImg {
+  height: 240px;
+  width: auto;
+  margin: 0px 40px;
+}
+
+.book-head {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background: white;
+  height: fit-content;
+}
+
+
+@keyframes scroll {
+  0% {
+      transform: translate(0);
   }
-  to {
-    transform: rotate(360deg);
+
+  50% {
+      transform: translate(-10%);
+  }
+
+  100% {
+      transform: translate(-30%);
   }
 }
 
-.load{
-  display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    height: 100vh;
-    color: #e3ebee;
-    text-emphasis-style: inherit;
-    text-shadow: 4px 3px 7px black;
+.drop-btn {
+  display: inline;
+  margin: 0px auto;
 }
-.authError{
+
+.drop-btn .btn-primary {
+  padding: 0.8rem;
+  background-color: #00000000;
+  border-color: #00000000;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none !important;
+  offset: 3;
+}
+
+
+.liked {
   color: red;
 }
-.user-logo{
-  position:absolute;
-  z-index: 3;
-  top:1rem;
-  right: 1rem;
-  
+
+
+
+
+
+
+
+@media screen and (max-width :1222px) {
+  .search-form {
+      display: flex;
+      flex-direction: column;
+      width: auto;
+      align-items: center;
+  }
+
+  .container {
+      width: 80%;
+      min-width: -webkit-fill-available;
+      margin: 12px 13px;
+  }
+
+}
+
+@media screen and (max-width :460px) {
+  .book-head {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .img-desc {
+      height: 15rem;
+      width: 10rem;
+  }
+
+  .book-desc {
+      margin: 2rem 1rem !important;
+      /* margin-bottom: 1rem !important; */
+      font-size: 0.9rem !important;
+  }
+  .book-meta{
+      flex-direction: column;
+  }
+
+  .search-form {
+      height: 32rem;
+  }
+
+  .search-form-group {
+      width: 70%;
+  }
+
+  .scroll-content {
+      animation: scroll 3s linear infinite;
+  }
 }

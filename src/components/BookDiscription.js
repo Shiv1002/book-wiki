@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import noImage from "./BookThumbnail/No Image.jpg";
 import Ratings from "./Layout/ratingStars";
+import Notfound from "./svg/not_found.svg";
 function BookDiscription({ ebook }) {
   let { id } = useParams();
   console.log(ebook.length);
@@ -26,125 +27,136 @@ function BookDiscription({ ebook }) {
 
   return (
     <div className="p-1">
-      <div
-        className="book-desc  col-lg-6 col-md-8 col-sm-10 col-xs-8 mx-auto my-3 p-1 "
-        style={{
-          border: "0px solid black",
-          borderRadius: "20px",
-          padding: "10px",
-          boxShadow: "black 1px 2px 20px 5px",
-          fontSize: "1rem",
-          fontFamily: "Exo, sans-serif",
-          fontWeight: "500",
-          // margin: "2rem auto",
-          // background:"blue",
-        }}
-      >
-        {Object.keys(currBook).length > 0 ? (
-          <>
-            <div
-              className="m-3 book-meta"
-              style={{
-                display: "flex",
-              }}
-            >
-              <div className="d-flex flex-column align-items-center position-relative">
-                {/* {currBook.maturityRating === "MATURE"?
+      {Object.keys(currBook).length > 0 ? (
+        <div
+          className="book-desc  col-lg-6 col-md-8 col-sm-10 col-xs-8 mx-auto my-3 p-1 "
+          style={{
+            border: "0px solid black",
+            borderRadius: "20px",
+            padding: "10px",
+            boxShadow: "black 1px 2px 20px 5px",
+            fontSize: "1rem",
+            fontFamily: "Exo, sans-serif",
+            fontWeight: "500",
+            // margin: "2rem auto",
+            // background:"blue",
+          }}
+        >
+          <div
+            className="m-3 book-meta"
+            style={{
+              display: "flex",
+            }}
+          >
+            <div className="d-flex flex-column align-items-center position-relative">
+              {/* {currBook.maturityRating === "MATURE"?
                 <span className='position-absolute top-0 start-0  p-1 bg-danger text-light rounded-circle translate-middle m-2'>18+</span>:null } */}
 
-                <img
-                  className="img img-desc m-2"
-                  alt={currBook.title}
-                  onError={imageError}
-                  src={
-                    currBook.imageLinks
-                      ? currBook.imageLinks.thumbnail ?? noImage
-                      : noImage
-                  }
-                />
-              </div>
-
-              <div className="book-head m-2">
-                <p>
-                  <strong> Name </strong>: {currBook.title}
-                </p>
-                <p>
-                  <strong>Author</strong> :{" "}
-                  {currBook.authors !== undefined ??
-                    currBook.authors.map((auth) => {
-                      return auth + ". ";
-                    })}
-                </p>
-                <p>
-                  <strong>Genres</strong>:{" "}
-                  {currBook.categories
-                    ? currBook.categories.map((cat) => {
-                        return cat + ". ";
-                      })
-                    : "---"}
-                </p>
-                <p>
-                  <strong>Publisher</strong>: {currBook.publisher ?? ""}{" "}
-                  {`(${currBook.publishedDate})` ?? "---"}
-                </p>
-                <p>
-                  <strong>Rating</strong>:
-                  <span>
-                    {currBook.averageRating !== undefined ? (
-                      <Ratings rating={currBook.averageRating} />
-                    ) : (
-                      " No Ratings"
-                    )}
-                  </span>
-                </p>
-                <p>
-                  <strong>Page count</strong>: {currBook.pageCount ?? 0} Pages{" "}
-                </p>
-
-                {currBookObj.accessInfo.pdf.isAvailable &&
-                currBookObj.accessInfo.pdf.downloadLink &&
-                currBookObj.accessInfo.pdf.downloadLink.includes(".pdf") ? (
-                  <button
-                    className="btn btn-primary "
-                    style={{ padding: "0.5rem 2rem", margin: "auto" }}
-                  >
-                    <a
-                      className="link-light"
-                      target="_blank"
-                      href={currBookObj.accessInfo.pdf.downloadLink}
-                    >
-                      Download pdf
-                    </a>
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-primary "
-                    style={{ padding: "0.5rem 1rem", margin: "auto" }}
-                    disabled
-                  >
-                    {" "}
-                    download unavailable
-                  </button>
-                )}
-                <button
-                  className="btn btn-primary "
-                  style={{ padding: "0.5rem 3rem", margin: "auto" }}
-                >
-                  <a className="link-light " href={currBook.infoLink}>
-                    Check out
-                  </a>
-                </button>
-              </div>
+              <img
+                className="img img-desc m-2"
+                alt={currBook.title}
+                onError={imageError}
+                src={
+                  currBook.imageLinks
+                    ? currBook.imageLinks.thumbnail ?? noImage
+                    : noImage
+                }
+              />
             </div>
 
-            <p className="m-4 book-head">
-              {currBook.description ?? "Description not avalaible"}
-            </p>
-          </>
-        ) : (
-          <div className="bg-white d-grid grid-center ">Invalid Link</div>
-        )}
-      </div>
+            <div className="book-head m-2">
+              <p>
+                <strong> Name </strong>: {currBook.title}
+              </p>
+              <p>
+                <strong>Author</strong> :{" "}
+                {currBook.authors !== undefined ??
+                  currBook.authors.map((auth) => {
+                    return auth + ". ";
+                  })}
+              </p>
+              <p>
+                <strong>Genres</strong>:{" "}
+                {currBook.categories
+                  ? currBook.categories.map((cat) => {
+                      return cat + ". ";
+                    })
+                  : "---"}
+              </p>
+              <p>
+                <strong>Publisher</strong>: {currBook.publisher ?? ""}{" "}
+                {`(${currBook.publishedDate})` ?? "---"}
+              </p>
+              <p>
+                <strong>Rating</strong>:
+                <span>
+                  {currBook.averageRating !== undefined ? (
+                    <Ratings rating={currBook.averageRating} />
+                  ) : (
+                    " No Ratings"
+                  )}
+                </span>
+              </p>
+              <p>
+                <strong>Page count</strong>: {currBook.pageCount ?? 0} Pages{" "}
+              </p>
+
+              {currBookObj.accessInfo.pdf.isAvailable &&
+              currBookObj.accessInfo.pdf.downloadLink &&
+              currBookObj.accessInfo.pdf.downloadLink.includes(".pdf") ? (
+                <button
+                  className="btn btn-primary "
+                  style={{ padding: "0.5rem 2rem", margin: "auto" }}
+                >
+                  <a
+                    className="link-light"
+                    target="_blank"
+                    href={currBookObj.accessInfo.pdf.downloadLink}
+                  >
+                    Download pdf
+                  </a>
+                </button>
+              ) : (
+                <button
+                  className="btn btn-primary "
+                  style={{ padding: "0.5rem 1rem", margin: "auto" }}
+                  disabled
+                >
+                  {" "}
+                  download unavailable
+                </button>
+              )}
+              <button
+                className="btn btn-primary "
+                style={{ padding: "0.5rem 3rem", margin: "auto" }}
+              >
+                <a className="link-light " href={currBook.infoLink}>
+                  Check out
+                </a>
+              </button>
+            </div>
+          </div>
+
+          <p className="m-4 book-head">
+            {currBook.description ?? "Description not avalaible"}
+          </p>
+        </div>
+      ) : (
+        <div className="col-sm-8 d-flex align-items-center   mx-auto ">
+          <img
+            src={Notfound}
+            style={{ width: "70%", filter: "drop-shadow(2px 4px 24px white)" }}
+          />
+          <span
+            className="fs-1 text-white"
+            style={{
+              boxSizing: "border-box",
+            }}
+          >
+            Book Not Found!!!
+          </span>
+        </div>
+      )}
     </div>
   );
 }

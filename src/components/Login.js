@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-import "./bookcontainer.css";
+import toast, { Toaster } from "react-hot-toast";
 import auth from "./firebase";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import axios from "axios";
-
+import "./Login.css";
 function Subcribers({ user, setUser }) {
   const [state, setState] = useState({
     emailError: "",
@@ -41,7 +41,11 @@ function Subcribers({ user, setUser }) {
   }
 
   function signInWithFirebase(e) {
-    // e.preventDefault()
+    if (!state.email || !state.password) {
+      toast.error("Email,Password cannot be empty");
+      return;
+    }
+    e.preventDefault();
     signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCred) => {
         console.log(userCred.user.uid);
@@ -100,6 +104,7 @@ function Subcribers({ user, setUser }) {
 
   return (
     <div className="login">
+      <Toaster position="middle" />
       <form onSubmit={(e) => e.preventDefault()}>
         <div>
           {/* working */}
@@ -108,7 +113,7 @@ function Subcribers({ user, setUser }) {
               <tbody>
                 <tr>
                   <th>
-                    <h2>Login</h2>
+                    <h2>Login account</h2>
                   </th>
                 </tr>
 
@@ -119,6 +124,7 @@ function Subcribers({ user, setUser }) {
                       name="email"
                       type="email"
                       id="email"
+                      required
                       placeholder="Enter Email Address here!"
                       value={state.email}
                       onChange={(e) => handleInput(e)}
@@ -143,6 +149,7 @@ function Subcribers({ user, setUser }) {
                       placeholder="Enter Password here!"
                       value={state.password}
                       onChange={handleInput}
+                      required
                     />
                   </td>
                   {state.passError ? (

@@ -18,8 +18,7 @@ const style = {
 };
 
 function ErrorPage() {
-  const [turn, setfirst] = useState("0turn");
-
+  // Error page served on invalid urls
   return (
     <div
       style={{

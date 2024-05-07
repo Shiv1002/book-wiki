@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link, Outlet } from "react-router-dom";
-import "./bookcontainer.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./Nav.css";
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -114,7 +115,10 @@ class NavBar extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div id="navbarCollapse" className="collapse navbar-collapse">
-            <ul className="nav nav-pills navbar-nav">
+            <ul
+              className="nav nav-pills navbar-nav d-flex"
+              style={{ width: "100%" }}
+            >
               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/">
                   Home
@@ -131,12 +135,14 @@ class NavBar extends Component {
                 )))
               }
 
-              <li className="nav-item">
-                {/* <Link className="nav-link " to="/AddBook">
-                  Add a Book
-                </Link> */}
+              {/* bootstrap classes */}
+              {/* {property}{sides}-{breakpoint}-{size} */}
+              <li className="nav-item ms-sm-auto">
+                <Link className="nav-link " to="/Login">
+                  login
+                </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item ms-0">
                 <Link className="nav-link " to="#??">
                   about
                 </Link>

@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./bookcontainer.css";
 import { EyeIcon, HeartIcon, RedHeartIcon, CartIcon } from "./Layout/icons.js";
 import noImage from "./BookThumbnail/No Image.jpg";
 import Ratings from "./Layout/ratingStars.js";
-
+import { Placeholder } from "react-bootstrap";
+import "./ebook.css";
 function Ebook({ ebook }) {
   const [isLiked, setIsLiked] = useState(false);
+
   // console.log(ebook);
   const book = ebook.volumeInfo;
+  // supporting image load handling
+  // const { src } = useImage(
+  //   book.imageLinks ? { srcList: book.imageLinks.thumbnail } : { srcList: "" }
+  // );
+
+  useEffect(() => {}, []);
+
   return (
     <>
       <div
@@ -19,11 +27,25 @@ function Ebook({ ebook }) {
 
         <div className="h-100 imageblock   rounded-top rounded-4 d-flex flex-column overflow-hidden ">
           <img
+            loading="lazy"
             className="w-100 h-75 img z-index-0"
-            src={book.imageLinks ? book.imageLinks.thumbnail : noImage}
+            src={book.imageLinks ? book.imageLinks.thumbnail : ""}
             alt={book.title}
             title={book.title}
+            onLoad={() => {
+              console.log("loaded successfully");
+            }}
+            loader={
+              <Placeholder
+                className="w-100 h-75 img z-index-0"
+                as="p"
+                animation="glow"
+              >
+                <Placeholder style={{ height: "100%" }} xs={12} />
+              </Placeholder>
+            }
           />
+
           <div className="bg-transparent  position-relative flex-grow-1 d-flex flex-column text-center pt-2 fw-normal text-white">
             <div className="d-flex flex-column  p-2">
               <span className="text-overflow-ellipsis flex-grow-1 font-link">
@@ -72,12 +94,12 @@ function Ebook({ ebook }) {
                 </Link>
               </div>
               <div className="flex-grow-1 text-center" title="check out!">
-                <Link
-                  to={book.infoLink}
+                <a
+                  href={book.infoLink}
                   className="icon-box border-2 border rounded-circle p-2"
                 >
                   <CartIcon height="1.5rem" width="1.5rem" fill="white" />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
