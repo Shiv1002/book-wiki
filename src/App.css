@@ -106,8 +106,7 @@ input.user:placeholder-shown {
 
 
 .buttn {
-  height: 50px;
-  width: 87%;
+
   background-color: #0d6dfd;
   color: rgb(236, 255, 255);
   font-size: large;
@@ -265,4 +264,20 @@ a {
   .scroll-content {
       animation: scroll 3s linear infinite;
   }
+}
+
+
+
+::-webkit-scrollbar{
+  width: 5px;
+    background-color: transparent;
+    height: 0;
+}
+::-webkit-scrollbar-thumb{
+  width: 1px;
+  color: #000000;
+}
+
+*{
+  transition: 0.5s;
 }

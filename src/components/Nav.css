@@ -35,3 +35,30 @@
     background-color: white;
     color: #1b1d21;
   }
+
+  .profile-show{
+    font-size: large !important;
+    font-weight: 400 !important;
+  }
+  .profile-show a,.pro-show>button{
+color: white;
+  }
+ .profile-show:hover a {
+    color: black;
+    
+  }
+  
+.pro-show *{
+  cursor: pointer;
+  padding: 0.6rem;
+}
+.pro-show button:hover{
+  
+  background-color: white;
+}
+.profile-show:hover>.icon  , .profile-show:hover button{
+    filter: invert();
+    }
+    
+
+ 

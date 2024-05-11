@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
-import urls from "./BaseUrls";
 import Col from "react-bootstrap/Col";
 import Alert from "@mui/material/Alert";
 import Button from "react-bootstrap/Button";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
 function AddBook() {
   const initValue = {
@@ -23,15 +21,7 @@ function AddBook() {
   const [validated, setValidation] = useState(false);
   const [open, setOpen] = React.useState(false);
 
-  useEffect(() => {
-    axios
-      .get(urls.books)
-      .then((res) => {
-        setGenre(res.data.genre);
-        console.log("Number of books found", res.data.length);
-      })
-      .catch((e) => console.log(e));
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     console.log("Updated values", frm);
@@ -76,16 +66,16 @@ function AddBook() {
         },
       };
       console.log("Data being sent", data);
-      await axios
-        .post(urls.books, data, config)
-        .then((res) => {
-          console.log(res);
-          setOpen(true);
-          setForm(initValue);
-          setImage();
-          setValidation(false);
-        })
-        .catch((err) => console.log(err));
+      // await axios
+      //   .post(urls.books, data, config)
+      //   .then((res) => {
+      //     console.log(res);
+      //     setOpen(true);
+      //     setForm(initValue);
+      //     setImage();
+      //     setValidation(false);
+      //   })
+      //   .catch((err) => console.log(err));
     }
   };
 

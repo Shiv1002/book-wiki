@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EyeIcon, HeartIcon, RedHeartIcon, CartIcon } from "./Layout/icons.js";
 import noImage from "./BookThumbnail/No Image.jpg";
 import Ratings from "./Layout/ratingStars.js";
 import { Placeholder } from "react-bootstrap";
 import "./ebook.css";
-function Ebook({ ebook }) {
-  const [isLiked, setIsLiked] = useState(false);
+import {
+  AddUserDataFavBooks,
+  RemoveUserDataFavBooks,
+} from "./Actions/firebase-actions.js";
+import toast from "react-hot-toast";
 
+function Ebook({ user, ebook, dispatch, isLiked }) {
+  const [fav, setIsfav] = useState(isLiked);
+  const nav = useNavigate();
   // console.log(ebook);
   const book = ebook.volumeInfo;
   // supporting image load handling
@@ -73,12 +79,57 @@ function Ebook({ ebook }) {
               <div
                 className="flex-grow-1 text-center "
                 onClick={(eve) => {
-                  setIsLiked((val) => !val);
+                  setIsfav((val) => !val);
+
+                  //if user not exist
+                  if (!user.email) {
+                    toast.error("You have to Login!!");
+                    nav("/login");
+                    return;
+                  }
+
+                  if (!isLiked)
+                    AddUserDataFavBooks(user.email, ebook.selfLink).then(
+                      (data) => {
+                        console.log(data);
+                        if (data.status === "success") {
+                          dispatch({
+                            type: "setUser",
+                            payload: {
+                              ...user,
+                              favBooks: [...user.favBooks, ebook.selfLink],
+                            },
+                          });
+                          toast.success("Added to favorites!");
+                        }
+                        setIsfav(!isLiked);
+                      }
+                    );
+                  else
+                    RemoveUserDataFavBooks(user.email, ebook.selfLink).then(
+                      (data) => {
+                        console.log(data);
+                        if (data.status === "success") {
+                          dispatch({
+                            type: "setUser",
+                            payload: {
+                              ...user,
+                              favBooks: user.favBooks.filter(
+                                (links) => links !== book.selfLink
+                              ),
+                            },
+                          });
+
+                          toast.success("Removed from favorites!");
+                        }
+                        setIsfav(!isLiked);
+                      }
+                    );
                 }}
                 title="add to favorites"
               >
                 <span className="icon-box border border-2 border rounded-circle p-2">
-                  {isLiked ? (
+                  {fav ? (
                     <RedHeartIcon height="1.5rem" width="1.5rem" fill="red" />
                   ) : (
                     <HeartIcon height="1.5rem" width="1.5rem" fill="white" />
@@ -88,6 +139,7 @@ function Ebook({ ebook }) {
               <div className=" flex-grow-1 p-2" title="details">
                 <Link
                   to={`/book/${ebook.id}`}
+                  state={ebook}
                   className="icon-box border-2 border rounded-circle p-2 "
                 >
                   <EyeIcon height="1.5rem" width="1.5rem" fill="white" />

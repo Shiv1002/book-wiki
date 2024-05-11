@@ -1,19 +1,17 @@
 import "./App.css";
-import React, { Suspense } from "react";
+import React from "react";
 import { useState, useEffect, useReducer, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
+
 import NavBar from "./components/Nav";
 import MainFrame from "./components/Main";
-import Subcribers from "./components/Subcribers";
+import Login from "./components/Login";
 import ErrorPage from "./components/ErrorPage";
 import BookDiscription from "./components/BookDiscription";
-import AddBook from "./components/addBook";
 import { initState, reducer } from "./components/Reducers/reducer";
-import { fetchAdventureBooks } from "./components/Actions/actions";
-import axios from "axios";
 import EbookList from "./components/EbookList";
 import SearchBookList from "./components/SearchBookList";
+import Profile from "./components/Profile";
 
 function App() {
   const genre = ["Adventure", "Fiction", "Horror", "Literature"];
@@ -23,7 +21,6 @@ function App() {
 
   useEffect(() => {
     //perform get request
-
     console.log("useEffect called");
   }, []);
 
@@ -54,14 +51,12 @@ function App() {
     <>
       <Router basename="/">
         <Routes>
-          <Route element={<NavBar ebook={state.books} genre={genre} />}>
+          <Route
+            element={<NavBar state={state} genre={genre} dispatch={dispatch} />}
+          >
             <Route
               path="/"
-              element={
-                <Suspense fallback={<h1 className="fs-1">h2lllll</h1>}>
-                  <MainFrame state={state} dispatch={dispatch} />
-                </Suspense>
-              }
+              element={<MainFrame state={state} dispatch={dispatch} />}
             >
               <Route
                 index
@@ -87,16 +82,17 @@ function App() {
                   />
                 }
               />
-              <Route
-                path="book/:id"
-                element={<BookDiscription ebook={state.books} />}
-              />
+              <Route path="book/:id" element={<BookDiscription />} />
             </Route>
             <Route
-              path="Subscribe"
-              element={<Subcribers state={state} dispatch={dispatch} />}
+              path="Login"
+              element={<Login state={state} dispatch={dispatch} />}
             />
             {/* <Route path="AddBook" element={<AddBook />} /> */}
+            <Route
+              path="/profile"
+              element={<Profile state={state} dispatch={dispatch} />}
+            />
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
@@ -106,7 +102,7 @@ function App() {
           ) : (
             <Link
               className="btn text-light fw-semibold rounded-2 fs-5 shadow-none"
-              to="/Subscribe"
+              to="/Login"
             >
               Login
             </Link>

@@ -3,29 +3,28 @@ import { Link, Outlet } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Nav.css";
+import { User } from "./Layout/icons";
+import { Toaster } from "react-hot-toast";
 class NavBar extends Component {
   constructor(props) {
     super(props);
 
-    const e = props.ebook;
-
+    const e = props.state.books;
     this.state = {
-      // word is holder of term being searched
-      word: "",
       ebook: e,
-      genres: null,
-      nameList: e.map((x) => x.Name),
-      AuthorList: e.map((x) => x.Author),
-      PublisherList: e.map((x) => x.Publisher),
+      genres: props.genre,
       navCat: [],
+      user: props.state.user,
+      showProfileCard: false,
     };
   }
   navCat = [];
 
+  //need to add as to derive state from props
   static getDerivedStateFromProps(props, state) {
-    state.ebook = props.ebook;
+    state.ebook = props.state.books;
     state.genres = props.genre;
-
+    state.user = props.state.user;
     return state;
   }
 
@@ -42,67 +41,17 @@ class NavBar extends Component {
         document.getElementById("navbarCollapse").classList.toggle("show");
       });
     }
+
+    console.log("mounting navbar");
   }
-
-  inputHandler = (event) => {
-    console.log("Event is fired");
-    this.setState({
-      word: event.target.value,
-    });
-  };
-
-  Search(x) {
-    // x is state word
-    // all objects in ebook  this.state.ebook.map((ele)=>console.log(ele))
-
-    let target = this.state.word;
-    const result = this.state.ebook.filter((book) => {
-      let index = book.srno;
-
-      // console.log(target,book)
-      if (
-        target === book.Name ||
-        target === book.Author ||
-        target === book.Publisher
-      ) {
-        //
-        console.log(
-          target + " is matched with index " + index + " of booklist "
-        );
-        return true;
-      } else return false;
-    });
-    // list of book found after search
-
-    result.map((ob) => console.log(ob));
-
-    //getting list of filtered indexes
-    const noList = result.reduce((acc, ele) => {
-      acc.push(ele.srno);
-      return acc;
-    }, []);
-
-    //check for empty list
-    if (noList.length === 0) {
-      alert("No Search results!!");
-    } else {
-      alert(`Searched one is present at ${noList}`);
-    }
+  componentDidUpdate() {
+    // console.log("updation occured!");
   }
-
-  //search end
-
-  submit = (event) => {
-    this.Search(this.state.word);
-    //to stop reloadinng of paage
-    event.preventDefault();
-  };
-
-  searchBook = () => {};
 
   render() {
     return (
       <>
+        <Toaster position="top-center" />
         <nav className="navbar navbar-expand-sm ">
           <button
             id="navToggler"
@@ -134,18 +83,84 @@ class NavBar extends Component {
                   </li>
                 )))
               }
-
-              {/* bootstrap classes */}
-              {/* {property}{sides}-{breakpoint}-{size} */}
-              <li className="nav-item ms-sm-auto">
-                <Link className="nav-link " to="/Login">
-                  login
-                </Link>
-              </li>
-              <li className="nav-item ms-0">
+              <li className="nav-item ms">
                 <Link className="nav-link " to="#??">
                   about
                 </Link>
+              </li>
+
+              {/* bootstrap classes */}
+              {/* {property}{sides}-{breakpoint}-{size} */}
+
+              <li
+                className="nav-item ms-sm-auto "
+                style={{
+                  zIndex: 3,
+                  position: "absolute",
+                  top: "0.5rem",
+                  right: "1rem",
+                }}
+              >
+                {this.state.user.email ? (
+                  <div
+                    className="nav-link profile-show position-relative "
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-end",
+                    }}
+                    onMouseEnter={() => {
+                      this.setState({ showProfileCard: true });
+                      // console.log(this.state.showProfileCard);
+                    }}
+                    onMouseLeave={() => {
+                      setTimeout(
+                        () =>
+                          this.setState({
+                            showProfileCard: false,
+                          }),
+                        0
+                      );
+                    }}
+                  >
+                    <User className="icon" fill="white" />
+                    <div
+                      className="pro-show"
+                      style={
+                        this.state.showProfileCard
+                          ? {
+                              display: "flex",
+                              flexDirection: "column",
+                              alignContent: "flex-end",
+
+                              background: "white",
+                              width: "10rem",
+                              borderRadius: "10px",
+                              wordWrap: "break-word",
+                            }
+                          : {
+                              display: "none",
+                            }
+                      }
+                    >
+                      <Link to="/Profile" className="">
+                        {this.state.user.email}
+                      </Link>
+                      <button
+                        className=" bg-transparent border-0 "
+                        onClick={() => {
+                          this.props.dispatch({ type: "resetUser" });
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <Link className="nav-link " to="/Login">
+                    login
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

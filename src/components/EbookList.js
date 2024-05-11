@@ -3,14 +3,36 @@ import { CircularProgress } from "@mui/material";
 import Header from "./CategoryHeader";
 import Ebook from "./ebook";
 import { fetchGenreBooks } from "./Actions/actions";
+import { ReadUserData } from "./Actions/firebase-actions";
+import { Toaster } from "react-hot-toast";
 export default function EbookList({ genre, state, dispatch }) {
+  console.log(state.user.favBooks);
   const booklist = state.books
     .filter(
       (book) =>
         book.volumeInfo.maturityRating === "NOT_MATURE" &&
         book.volumeInfo.imageLinks
     )
-    .map((book) => <Ebook key={book.id} ebook={book} />);
+    .map((book) => {
+      if (state.user.favBooks.filter((link) => link === book.selfLink).length)
+        return (
+          <Ebook
+            key={book.id}
+            isLiked
+            user={state.user}
+            ebook={book}
+            dispatch={dispatch}
+          />
+        );
+      return (
+        <Ebook
+          key={book.id}
+          ebook={book}
+          user={state.user}
+          dispatch={dispatch}
+        />
+      );
+    });
 
   useEffect(() => {
     console.log(genre, "loading");
@@ -26,6 +48,16 @@ export default function EbookList({ genre, state, dispatch }) {
       .finally(() => {
         setIsLoading(false);
       });
+
+    if (state.user.email)
+      ReadUserData(state.user.email)
+        .then((data) => {
+          dispatch({
+            type: "setUser",
+            payload: { ...state.user, favBooks: data.favBooks },
+          });
+        })
+        .catch((e) => console.log(e));
   }, []);
   //
 

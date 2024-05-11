@@ -1,13 +1,15 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import noImage from "./BookThumbnail/No Image.jpg";
 import Ratings from "./Layout/ratingStars";
 import Notfound from "./svg/not_found.svg";
-function BookDiscription({ ebook }) {
-  let { id } = useParams();
-  console.log(ebook.length);
-  const currBookObj = ebook.filter((ele) => ele.id === id)[0];
-  const currBook = currBookObj ? currBookObj.volumeInfo : {};
+function BookDiscription() {
+  let ebook = useLocation().state;
+
+  const currBook = ebook;
+
+  const volumeInfo = currBook.volumeInfo;
+
   // id of 0
   // {srno: 1, Name: 'Harry Potter', Thumbnail: '', Author: 'J.K. Rowling', Genre: 'Fantasy', …}
   // Author: "J.K. Rowling"
@@ -27,7 +29,7 @@ function BookDiscription({ ebook }) {
 
   return (
     <div className="p-1">
-      {Object.keys(currBook).length > 0 ? (
+      {currBook ? (
         <div
           className="book-desc  col-lg-6 col-md-8 col-sm-10 col-xs-8 mx-auto my-3 p-1 "
           style={{
@@ -54,11 +56,11 @@ function BookDiscription({ ebook }) {
 
               <img
                 className="img img-desc m-2"
-                alt={currBook.title}
+                alt={volumeInfo.title}
                 onError={imageError}
                 src={
-                  currBook.imageLinks
-                    ? currBook.imageLinks.thumbnail ?? noImage
+                  volumeInfo.imageLinks
+                    ? volumeInfo.imageLinks.thumbnail ?? noImage
                     : noImage
                 }
               />
@@ -66,44 +68,44 @@ function BookDiscription({ ebook }) {
 
             <div className="book-head m-2">
               <p>
-                <strong> Name </strong>: {currBook.title}
+                <strong> Name </strong>: {volumeInfo.title}
               </p>
               <p>
                 <strong>Author</strong> :{" "}
-                {currBook.authors !== undefined ??
-                  currBook.authors.map((auth) => {
+                {volumeInfo.authors !== undefined ??
+                  volumeInfo.authors.map((auth) => {
                     return auth + ". ";
                   })}
               </p>
               <p>
                 <strong>Genres</strong>:{" "}
-                {currBook.categories
-                  ? currBook.categories.map((cat) => {
+                {volumeInfo.categories
+                  ? volumeInfo.categories.map((cat) => {
                       return cat + ". ";
                     })
                   : "---"}
               </p>
               <p>
-                <strong>Publisher</strong>: {currBook.publisher ?? ""}{" "}
-                {`(${currBook.publishedDate})` ?? "---"}
+                <strong>Publisher</strong>: {volumeInfo.publisher ?? ""}{" "}
+                {`(${volumeInfo.publishedDate})` ?? "---"}
               </p>
               <p>
                 <strong>Rating</strong>:
                 <span>
-                  {currBook.averageRating !== undefined ? (
-                    <Ratings rating={currBook.averageRating} />
+                  {volumeInfo.averageRating !== undefined ? (
+                    <Ratings rating={volumeInfo.averageRating} />
                   ) : (
                     " No Ratings"
                   )}
                 </span>
               </p>
               <p>
-                <strong>Page count</strong>: {currBook.pageCount ?? 0} Pages{" "}
+                <strong>Page count</strong>: {volumeInfo.pageCount ?? 0} Pages{" "}
               </p>
 
-              {currBookObj.accessInfo.pdf.isAvailable &&
-              currBookObj.accessInfo.pdf.downloadLink &&
-              currBookObj.accessInfo.pdf.downloadLink.includes(".pdf") ? (
+              {currBook.accessInfo.pdf.isAvailable &&
+              currBook.accessInfo.pdf.downloadLink &&
+              currBook.accessInfo.pdf.downloadLink.includes(".pdf") ? (
                 <button
                   className="btn btn-primary "
                   style={{ padding: "0.5rem 2rem", margin: "auto" }}
@@ -111,7 +113,7 @@ function BookDiscription({ ebook }) {
                   <a
                     className="link-light"
                     target="_blank"
-                    href={currBookObj.accessInfo.pdf.downloadLink}
+                    href={currBook.accessInfo.pdf.downloadLink}
                   >
                     Download pdf
                   </a>
@@ -130,7 +132,7 @@ function BookDiscription({ ebook }) {
                 className="btn btn-primary "
                 style={{ padding: "0.5rem 3rem", margin: "auto" }}
               >
-                <a className="link-light " href={currBook.infoLink}>
+                <a className="link-light " href={volumeInfo.infoLink}>
                   Check out
                 </a>
               </button>
@@ -138,7 +140,7 @@ function BookDiscription({ ebook }) {
           </div>
 
           <p className="m-4 book-head">
-            {currBook.description ?? "Description not avalaible"}
+            {volumeInfo.description ?? "Description not avalaible"}
           </p>
         </div>
       ) : (

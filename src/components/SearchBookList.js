@@ -12,7 +12,26 @@ export default function SearchBookList({ state, dispatch }) {
         book.volumeInfo.maturityRating === "NOT_MATURE" &&
         book.volumeInfo.imageLinks
     )
-    .map((book) => <Ebook key={book.id} ebook={book} />);
+    .map((book) => {
+      if (state.user.favBooks.filter((link) => link === book.selfLink).length)
+        return (
+          <Ebook
+            key={book.id}
+            isLiked
+            user={state.user}
+            ebook={book}
+            dispatch={dispatch}
+          />
+        );
+      return (
+        <Ebook
+          key={book.id}
+          ebook={book}
+          user={state.user}
+          dispatch={dispatch}
+        />
+      );
+    });
 
   useEffect(() => {
     console.log(params, "loading");
@@ -24,9 +43,10 @@ export default function SearchBookList({ state, dispatch }) {
       })
       .catch((e) => {
         console.log(e);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-
-    setIsLoading(false);
   }, []);
   //
 

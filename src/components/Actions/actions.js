@@ -5,12 +5,12 @@ export const fetchGenreBooks = async (genre) => {
     // resolve(advObj);
     axios
       .get(
-        // "https://www.googleapis.com/books/v1/volumes?q=" +
-        //   "subject:" +
-        //   genre +
-        //   `&key=${process.env.REACT_APP_BOOKS_KEY}` +
-        //   "&maxResults=40"
-        "http://localhost:3001/api/books"
+        "https://www.googleapis.com/books/v1/volumes?q=" +
+          "subject:" +
+          genre +
+          `&key=${process.env.REACT_APP_BOOKS_KEY}` +
+          "&maxResults=40"
+        // "http://localhost:3001/api/books"
       )
       .then((res) => {
         // console.log("Books from server", res.data); //working
@@ -42,10 +42,21 @@ export const fetchSearchBooks = async (search) => {
   });
 };
 
-export const getBase64Img = async (src) => {
-  const buffer = await fetch(src)
-    .then(async (res) => Buffer.from(await res.arrayBuffer()))
-    .catch((e) => {
-      console.log(e.message);
-    });
+export const ReadUserFavBooks = async (favBooksLinks) => {
+  return new Promise(async (resolve, reject) => {
+    let response = [];
+    try {
+      for (let link of favBooksLinks)
+        await fetch(link)
+          .then((rs) => rs.json())
+          .then((data) => {
+            console.log("read data", data);
+            response.push(data);
+          });
+
+      resolve(response);
+    } catch (e) {
+      reject(e);
+    }
+  });
 };
