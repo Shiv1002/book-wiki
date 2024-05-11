@@ -25,7 +25,7 @@ const MainPage = ({ state, dispatch }) => {
 
       //   animation.start();
     }
-    performAnimation().then((rs) => console.log(rs));
+    // performAnimation().then((rs) => console.log(rs));
   }, []);
 
   const searchBooks = (event) => {
