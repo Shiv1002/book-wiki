@@ -5,6 +5,7 @@ import Ebook from "./ebook";
 import { fetchGenreBooks } from "./Actions/actions";
 import { ReadUserData } from "./Actions/firebase-actions";
 import { Toaster } from "react-hot-toast";
+import Background from "./Background";
 export default function EbookList({ genre, state, dispatch }) {
   console.log(state.user.favBooks);
   const booklist = state.books
@@ -67,9 +68,12 @@ export default function EbookList({ genre, state, dispatch }) {
 
   return (
     <div className="row">
-      <div className="col position-absolute [bg-primary] w-100">
+      <div
+        id="ebook-list"
+        className=" col position-absolute [bg-primary] w-100"
+      >
         {isLoading ? (
-          <div className="text-center my-5">
+          <div className="text-center my-5 ">
             <CircularProgress style={{ color: "#fff" }} />
             <h3 className="text-white">Loading...</h3>
           </div>
@@ -77,15 +81,16 @@ export default function EbookList({ genre, state, dispatch }) {
           <>
             <Header title={genre} total={booklist.length} />
 
-            <div className="d-flex flex-wrap justify-content-center">
+            <div className="d-flex flex-wrap justify-content-center s">
               {booklist}
             </div>
           </>
         ) : (
-          <div className="d-flex justify-content-center text-white fs-2 fw-normal">
+          <div className="d-flex justify-content-center  fs-2 fw-normal">
             <span className="">No Books found!!</span>
           </div>
         )}
+        <Background />
       </div>
     </div>
   );

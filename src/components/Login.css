@@ -95,16 +95,24 @@
     border-top: 1px solid #aaa
   }
 
-  #logo button {
+form>.input-form>div{
+  width: 100%;
+}
+#logo{
+  width: 100%;
+}
+button {
+    margin: 0 auto;
+    width: 40%;
     background-color: #ffffff;
-    margin: 5px 10px 10px 10px;
     padding: 8px;
     border-radius: 35px;
     border: 1px solid rgb(128, 128, 128);
+    justify-content: space-evenly;
   }
   
-  #logo button:hover {
-    background-color: #0d45fddf;
+button:hover {
+    background-color: #c7c7c79e;
   }
   
   #logo button img {

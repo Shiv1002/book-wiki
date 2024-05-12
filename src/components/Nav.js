@@ -97,13 +97,13 @@ class NavBar extends Component {
                 style={{
                   zIndex: 3,
                   position: "absolute",
-                  top: "0.5rem",
+                  top: "1rem",
                   right: "1rem",
                 }}
               >
                 {this.state.user.email ? (
                   <div
-                    className="nav-link profile-show position-relative "
+                    className="profile-show  position-relative "
                     style={{
                       display: "flex",
                       flexDirection: "column",
@@ -123,37 +123,37 @@ class NavBar extends Component {
                       );
                     }}
                   >
-                    <User className="icon" fill="white" />
+                    <User fill="white" />
                     <div
-                      className="pro-show"
+                      className="pro-show d-flex flex-column  bg-transparent"
                       style={
                         this.state.showProfileCard
-                          ? {
-                              display: "flex",
-                              flexDirection: "column",
-                              alignContent: "flex-end",
-
-                              background: "white",
-                              width: "10rem",
-                              borderRadius: "10px",
-                              wordWrap: "break-word",
+                          ? // true
+                            {
+                              translate: "0 1rem",
+                              opacity: 1,
                             }
                           : {
-                              display: "none",
+                              // display: "none",
+                              translate: "0 -5rem",
+                              opacity: 0,
                             }
                       }
                     >
-                      <Link to="/Profile" className="">
-                        {this.state.user.email}
-                      </Link>
-                      <button
-                        className=" bg-transparent border-0 "
-                        onClick={() => {
-                          this.props.dispatch({ type: "resetUser" });
-                        }}
-                      >
-                        Logout
-                      </button>
+                      <div className="bg-white d-flex flex-column">
+                        <Link to="/Profile" className="">
+                          Profile
+                        </Link>
+
+                        <button
+                          className="  border-0 "
+                          onClick={() => {
+                            this.props.dispatch({ type: "resetUser" });
+                          }}
+                        >
+                          Logout
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ) : (

@@ -73,8 +73,8 @@ const FavList = ({ list, state, dispatch }) => {
   return (
     <>
       <div
-        className="text-black  flex-grow-1 p-1 border-2 position-relative "
-        style={{ height: "100%", overflowY: "scroll" }}
+        className="library text-black  flex-grow-1 p-1  position-relative "
+        style={{ overflowY: "scroll" }}
       >
         {list.map(
           (book, index) =>
@@ -84,6 +84,7 @@ const FavList = ({ list, state, dispatch }) => {
                 style={{ height: "10vh", width: "100%", borderRadius: "1rem" }}
                 className="d-flex  border border-2 justify-items-around my-2 p-1"
               >
+                {}
                 <img
                   src={
                     book.volumeInfo.imageLinks

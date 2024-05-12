@@ -4,21 +4,18 @@
     padding: 5px;
     aspect-ratio: 5/10;
     height: 30rem;
-    
+    color: rgb(255, 255, 255);
   }
   
   
-  .thumbContainer:hover {
-    background-color: #00000035;
+  .thumbContainer {
+    background-color: #2e2e2e46;
   }
 
   .text-overflow-ellipsis{
     text-overflow: ellipsis;
     overflow: hidden;
     text-wrap: nowrap;
-  }
-  .thumbContainer:hover .thumbContainerHover {
-    transform: translate(0, -50%);
   }
 
   
@@ -38,10 +35,12 @@
   
   }
   
-  .thumbContainerHover div:hover {
-    background-color: #f643ff89;
-  }
+
   
   .thumbContainerHover * {
     transition: all 0.2s;
+  }
+
+.ebook-icons svg path{
+    fill:white
   }

@@ -52,7 +52,7 @@ function Ebook({ user, ebook, dispatch, isLiked }) {
             }
           />
 
-          <div className="bg-transparent  position-relative flex-grow-1 d-flex flex-column text-center pt-2 fw-normal text-white">
+          <div className="bg-transparent  position-relative flex-grow-1 d-flex flex-column text-center pt-2 fw-normal">
             <div className="d-flex flex-column  p-2">
               <span className="text-overflow-ellipsis flex-grow-1 font-link">
                 <strong>
@@ -128,11 +128,11 @@ function Ebook({ user, ebook, dispatch, isLiked }) {
                 }}
                 title="add to favorites"
               >
-                <span className="icon-box border border-2 border rounded-circle p-2">
+                <span className="icon-box border border-2 border  rounded-circle p-2">
                   {fav ? (
                     <RedHeartIcon height="1.5rem" width="1.5rem" fill="red" />
                   ) : (
-                    <HeartIcon height="1.5rem" width="1.5rem" fill="white" />
+                    <HeartIcon height="1.5rem" width="1.5rem" />
                   )}
                 </span>
               </div>
@@ -140,17 +140,17 @@ function Ebook({ user, ebook, dispatch, isLiked }) {
                 <Link
                   to={`/book/${ebook.id}`}
                   state={ebook}
-                  className="icon-box border-2 border rounded-circle p-2 "
+                  className="icon-box border-2 border  rounded-circle p-2 "
                 >
-                  <EyeIcon height="1.5rem" width="1.5rem" fill="white" />
+                  <EyeIcon height="1.5rem" width="1.5rem" />
                 </Link>
               </div>
               <div className="flex-grow-1 text-center" title="check out!">
                 <a
                   href={book.infoLink}
-                  className="icon-box border-2 border rounded-circle p-2"
+                  className="icon-box border-2 border  rounded-circle p-2"
                 >
-                  <CartIcon height="1.5rem" width="1.5rem" fill="white" />
+                  <CartIcon height="1.5rem" width="1.5rem" />
                 </a>
               </div>
             </div>

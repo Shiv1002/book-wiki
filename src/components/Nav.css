@@ -3,7 +3,7 @@
     position: relative;
     font-weight: 600;
     min-width: fit-content;
-    background: linear-gradient(90deg, #020202, #a50097);
+    background:linear-gradient(90deg, var(--primary-dark), var(--primary-light));
     padding: 9px;
     min-height: 4.5rem;
     justify-content: center;
@@ -19,8 +19,11 @@
     font-size: large;
     text-align: center;
     margin: 5px 5px;
+    align-items: center;
   }
-  
+  .nav-item{
+    align-items: center;
+  }
 
   .nav-pills .nav-link:active {
     transform: scale(0.92) !important;
@@ -39,26 +42,30 @@
   .profile-show{
     font-size: large !important;
     font-weight: 400 !important;
+    text-align: center;
   }
-  .profile-show a,.pro-show>button{
-color: white;
-  }
- .profile-show:hover a {
-    color: black;
-    
+ 
+ 
+  .pro-show{
+   
+                              width: 10rem;
+                              border-radius: 1rem;
+                              overflow: auto;
+                              
   }
   
-.pro-show *{
+.pro-show>div>*{
   cursor: pointer;
-  padding: 0.6rem;
+padding: 0.6rem;
 }
-.pro-show button:hover{
-  
-  background-color: white;
+.pro-show a ,.pro-show button{
+  color: black;
+  width: 100%;
+  border-radius: 0;
 }
-.profile-show:hover>.icon  , .profile-show:hover button{
-    filter: invert();
-    }
-    
+.pro-show a:hover,.pro-show button:hover{
+background-color: rgba(205, 205, 205, 0.326);
+}
+
 
  

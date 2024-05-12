@@ -39,7 +39,7 @@ const MainPage = ({ state, dispatch }) => {
   };
 
   return (
-    <>
+    <div className="Mainbox">
       <div className="search-form d-flex flex-column z-1 align-items-center justify-content-end position-relative">
         <div className="nav-heading p-4 d-flex flex-column align-items-center">
           <p className="nav-heading-1 text-light">
@@ -89,8 +89,8 @@ const MainPage = ({ state, dispatch }) => {
               y2="100%"
               gradientTransform="rotate(270)"
             >
-              <stop offset="0%" stopColor="#020202" />
-              <stop offset="100%" stopColor="#a50097" />
+              <stop offset="0%" stopColor="var(--primary-dark)" />
+              <stop offset="100%" stopColor="var(--primary-light)" />
             </linearGradient>
           </defs>
           <g>
@@ -115,7 +115,7 @@ const MainPage = ({ state, dispatch }) => {
       {/* <EbookList isLoading={isLoading} booklist={booklist} {...props} /> */}
 
       <Outlet />
-    </>
+    </div>
   );
 };
 

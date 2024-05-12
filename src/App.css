@@ -2,8 +2,12 @@
   font-family: "Sedan-regular";
   src: url('../public/fonts/SedanSC-Regular.ttf')  format('truetype');
 }
-
+html{
+  height: max-content;
+}
 #root {
+  --primary-dark : #220020;
+  --primary-light:#b300a4;
   height: 100%;
 }
 
@@ -13,9 +17,11 @@ body{
   font-weight: 400;
   font-style: normal;
   height: 90vh;
-    background: url('./components/logo/bg.jpg') repeat center center;
+    background: url('./components/logo/bg.jpg') repeat center center; 
     background-size: cover;
-    transition: all 0.8s;
+    transition: all 0.8s; 
+
+    /* background: linear-gradient(90deg, #220020 ,#b300a4); */
 }
 
 
@@ -112,6 +118,7 @@ input.user:placeholder-shown {
   font-size: large;
   border-radius: 40px;
   border-color: rgb(0, 145, 255);
+  padding: 0.6rem ;
 }
 
 .buttn:hover {
@@ -269,13 +276,15 @@ a {
 
 
 ::-webkit-scrollbar{
-  width: 5px;
+  width: 10px;
     background-color: transparent;
     height: 0;
+    position: relative;
+    right:0
 }
 ::-webkit-scrollbar-thumb{
-  width: 1px;
-  color: #000000;
+  background-color: #c8c8c8;
+  border-radius: 1rem;
 }
 
 *{

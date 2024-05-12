@@ -12,6 +12,7 @@ import { initState, reducer } from "./components/Reducers/reducer";
 import EbookList from "./components/EbookList";
 import SearchBookList from "./components/SearchBookList";
 import Profile from "./components/Profile";
+import Background from "./components/Background";
 
 function App() {
   const genre = ["Adventure", "Fiction", "Horror", "Literature"];
@@ -61,12 +62,15 @@ function App() {
               <Route
                 index
                 element={
-                  <EbookList
-                    key="Adventure"
-                    genre="Adventure"
-                    state={state}
-                    dispatch={dispatch}
-                  />
+                  <>
+                    <EbookList
+                      key="Adventure"
+                      genre="Adventure"
+                      state={state}
+                      dispatch={dispatch}
+                    />
+                    {/* <Background /> */}
+                  </>
                 }
               ></Route>
 
@@ -96,19 +100,25 @@ function App() {
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-        <div className="user-logo bg-black rounded">
-          {/* {state.user.email ? (
-            <span className="text-light">{state.user.email}</span>
-          ) : (
-            <Link
-              className="btn text-light fw-semibold rounded-2 fs-5 shadow-none"
-              to="/Login"
-            >
-              Login
-            </Link>
-          )} */}
-        </div>
+        <div
+          className=""
+          style={
+            {
+              // height:
+              //   document.getElementById("ebook-list")?.scrollHeight || "100dvh",
+              // top: 0,
+            }
+          }
+        ></div>
       </Router>
+    </>
+  );
+}
+function ChildWithAnimation({ children }) {
+  return (
+    <>
+      {children}
+      <Background />
     </>
   );
 }

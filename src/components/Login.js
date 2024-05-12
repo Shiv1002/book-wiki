@@ -10,7 +10,8 @@ import axios from "axios";
 import "./Login.css";
 import { Spinner } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
-
+import Background from "./Background";
+import { GoogleIcon } from "./Layout/icons";
 const initState = {
   email: "",
   password: "",
@@ -162,22 +163,23 @@ function Login({ state, dispatch }) {
                   Terms Of Use
                 </a>
               </p>
+              <div className="d-flex justify-content-evenly">
+                <button
+                  className="buttn "
+                  type="submit"
+                  onClick={(e) => signInWithFirebase(e)}
+                >
+                  login
+                </button>
 
-              <button
-                className="buttn "
-                type="submit"
-                onClick={(e) => signInWithFirebase(e)}
-              >
-                login
-              </button>
-
-              <button
-                className="buttn "
-                type="submit"
-                onClick={() => signUpWithFireBase()}
-              >
-                sign up
-              </button>
+                <button
+                  className="buttn "
+                  type="submit"
+                  onClick={() => signUpWithFireBase()}
+                >
+                  sign up
+                </button>
+              </div>
 
               <div className="col-md-12">
                 <div className="login-or">
@@ -186,11 +188,12 @@ function Login({ state, dispatch }) {
                 </div>
               </div>
 
-              <div id="logo" className="d-flex">
-                <button onClick={() => login()}>Login</button>
-
-                <button onClick={() => dispatch({ type: "resetUser" })}>
-                  logout
+              <div id="logo" className="d-flex ">
+                <button
+                  onClick={() => login()}
+                  className="d-flex align-items-center"
+                >
+                  <span>Login with</span> <GoogleIcon fill="darkred" />
                 </button>
               </div>
             </div>
@@ -200,6 +203,7 @@ function Login({ state, dispatch }) {
           // <Profile state={state} dispatch={dispatch} />
         )}
       </form>
+      <Background />
     </div>
   );
 }

@@ -5,12 +5,12 @@ export const fetchGenreBooks = async (genre) => {
     // resolve(advObj);
     axios
       .get(
-        "https://www.googleapis.com/books/v1/volumes?q=" +
-          "subject:" +
-          genre +
-          `&key=${process.env.REACT_APP_BOOKS_KEY}` +
-          "&maxResults=40"
-        // "http://localhost:3001/api/books"
+        // "https://www.googleapis.com/books/v1/volumes?q=" +
+        //   "subject:" +
+        //   genre +
+        //   `&key=${process.env.REACT_APP_BOOKS_KEY}` +
+        //   "&maxResults=40"
+        "http://localhost:3001/api/books"
       )
       .then((res) => {
         // console.log("Books from server", res.data); //working
@@ -47,7 +47,7 @@ export const ReadUserFavBooks = async (favBooksLinks) => {
     let response = [];
     try {
       for (let link of favBooksLinks)
-        await fetch(link)
+        await fetch("http://localhost:3001/api/books/any")
           .then((rs) => rs.json())
           .then((data) => {
             console.log("read data", data);

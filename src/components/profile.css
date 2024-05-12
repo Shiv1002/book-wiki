@@ -5,7 +5,7 @@
 .profile-data *{
     flex-grow: 0.5;
     flex-basis: 50%;
-    padding: 1rem;
+    
 }
 #emailImg{
 
@@ -16,8 +16,18 @@
     width: 50%;
     overflow: scroll;
 }
+@media screen and (width < 1000px){
+    .container {
+        height: max-content;
+    }
+    .fav-books {
+        width: 100%;
+    }
+
+}
+
 span{
-    /* max-width: 10%; */
+    /* min-hrih: 10%; */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
