@@ -102,40 +102,31 @@ function BookDiscription() {
               <p>
                 <strong>Page count</strong>: {volumeInfo.pageCount ?? 0} Pages{" "}
               </p>
-
-              {currBook.accessInfo.pdf.isAvailable &&
-              currBook.accessInfo.pdf.downloadLink &&
-              currBook.accessInfo.pdf.downloadLink.includes(".pdf") ? (
-                <button
-                  className="btn btn-primary "
-                  style={{ padding: "0.5rem 2rem", margin: "auto" }}
-                >
-                  <a
-                    className="link-light"
-                    target="_blank"
-                    href={currBook.accessInfo.pdf.downloadLink}
-                  >
-                    Download pdf
+              <div className="d-flex ">
+                {currBook.accessInfo.pdf.isAvailable &&
+                currBook.accessInfo.pdf.downloadLink &&
+                currBook.accessInfo.pdf.downloadLink.includes(".pdf") ? (
+                  <button className="btn btn-primary ">
+                    <a
+                      className="link-light"
+                      target="_blank"
+                      href={currBook.accessInfo.pdf.downloadLink}
+                    >
+                      Download pdf
+                    </a>
+                  </button>
+                ) : (
+                  <button className="btn btn-primary " disabled>
+                    {" "}
+                    download unavailable
+                  </button>
+                )}
+                <button className="btn btn-primary ">
+                  <a className="link-light " href={volumeInfo.infoLink}>
+                    Check out
                   </a>
                 </button>
-              ) : (
-                <button
-                  className="btn btn-primary "
-                  style={{ padding: "0.5rem 1rem", margin: "auto" }}
-                  disabled
-                >
-                  {" "}
-                  download unavailable
-                </button>
-              )}
-              <button
-                className="btn btn-primary "
-                style={{ padding: "0.5rem 3rem", margin: "auto" }}
-              >
-                <a className="link-light " href={volumeInfo.infoLink}>
-                  Check out
-                </a>
-              </button>
+              </div>
             </div>
           </div>
 

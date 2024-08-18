@@ -205,6 +205,10 @@ a {
     margin: 12px 13px;
   }
 }
+.img-desc {
+  height: 15rem;
+  width: 10rem;
+}
 
 @media screen and (max-width: 460px) {
   .book-head {
