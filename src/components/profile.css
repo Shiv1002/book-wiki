@@ -1,51 +1,48 @@
-.container{
-    height: 70vh;
+.container {
+  height: 70vh;
+  background: #e7e7e7;
 }
 
-.profile-data *{
-    flex-grow: 0.5;
-    flex-basis: 50%;
-    
+.profile-data * {
+  flex-grow: 0.5;
+  flex-basis: 50%;
 }
-#emailImg{
-
-    max-height: 240px;
+#emailImg {
+  max-height: 240px;
 }
-.fav-books{
-    height: 100%;
-    width: 50%;
-    overflow: scroll;
+.fav-books {
+  height: 100%;
+  width: 50%;
+  overflow: scroll;
 }
-@media screen and (width < 1000px){
-    .container {
-        height: max-content;
-    }
-    .fav-books {
-        width: 100%;
-    }
-
+@media screen and (width < 1000px) {
+  .container {
+    height: max-content;
+  }
+  .fav-books {
+    width: 100%;
+  }
 }
 
-span{
-    /* min-hrih: 10%; */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+span {
+  /* min-hrih: 10%; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.toggle-option{
-    font-size: medium;
-    text-wrap: nowrap;
-    
+.toggle-option {
+  font-size: medium;
+  text-wrap: nowrap;
 }
-.toggle-option div{
-padding: 0.6rem ;
-overflow: hidden;
-}
-
-.toggle-option div:active{
-    background-color: rgba(204, 223, 240, 0.325);
+.toggle-option div {
+  padding: 0.6rem;
+  overflow: hidden;
 }
 
-.toggle-option div:hover{
-    background-color: rgba(182, 217, 247, 0.325);
+.toggle-option div:active {
+  background-color: rgba(204, 223, 240, 0.325);
+}
+
+.toggle-option div:hover {
+  background-color: rgba(182, 217, 247, 0.325);
 }

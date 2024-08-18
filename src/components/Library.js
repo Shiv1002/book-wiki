@@ -81,8 +81,13 @@ const FavList = ({ list, state, dispatch }) => {
             book && (
               <div
                 key={book.id}
-                style={{ height: "10vh", width: "100%", borderRadius: "1rem" }}
-                className="d-flex  border border-2 justify-items-around my-2 p-1"
+                style={{
+                  height: "10vh",
+                  width: "100%",
+                  borderRadius: "1rem",
+                  border: "1px #ccbbbb solid ",
+                }}
+                className="d-flex   justify-items-around my-2 p-1"
               >
                 {}
                 <img
@@ -99,7 +104,9 @@ const FavList = ({ list, state, dispatch }) => {
                   className="d-flex flex-column px-2"
                   style={{ width: "90%" }}
                 >
-                  <span className="fs-5">{book.volumeInfo.title}</span>
+                  <span className="fs-4 fs-semibold">
+                    {book.volumeInfo.title}
+                  </span>
                   <span className="fs-6">{book.volumeInfo.description}</span>
                 </div>
 

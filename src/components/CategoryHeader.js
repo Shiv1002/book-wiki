@@ -8,7 +8,6 @@ const Header = (props) => {
     width: "fit-content",
     border: "1px solid #fffefe",
     borderRadius: "1rem",
-    fontFamily: "Kaushan Script",
     fontSize: "1.4rem",
     padding: "0.5rem",
     margin: "0px auto",

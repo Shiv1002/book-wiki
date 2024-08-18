@@ -1,40 +1,31 @@
 @font-face {
   font-family: "Sedan-regular";
-  src: url('../public/fonts/SedanSC-Regular.ttf')  format('truetype');
+  src: url("../public/fonts/SedanSC-Regular.ttf") format("truetype");
 }
-html{
+html {
   height: max-content;
 }
 #root {
-  --primary-dark : #220020;
-  --primary-light:#b300a4;
+  --primary-dark: #220020;
+  --primary-light: #b300a4;
   height: 100%;
+  font-family: "Sedan-regular", sans-serif;
 }
 
-
-body{
-  font-family: 'Sedan-regular' !important;
-  font-weight: 400;
-  font-style: normal;
+body {
   height: 90vh;
-    background: url('./components/logo/bg.jpg') repeat center center; 
-    background-size: cover;
-    transition: all 0.8s; 
+  background: url("./components/logo/bg.jpg") repeat center center;
+  background-size: cover;
+  transition: all 0.8s;
 
-    /* background: linear-gradient(90deg, #220020 ,#b300a4); */
+  /* background: linear-gradient(90deg, #220020 ,#b300a4); */
 }
 
-
-
-
-
-.text-overflow-ellipsis{
+.text-overflow-ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
   text-wrap: nowrap;
 }
-
-
 
 .bookTitle a {
   font-size: large;
@@ -56,8 +47,7 @@ body{
   padding: 10px 2px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start,
-
+  align-items: flex-start;
 }
 
 .cool::-webkit-scrollbar {
@@ -81,11 +71,7 @@ body{
 .img {
   box-sizing: border-box;
   border-radius: 0pc 0pc 1rem 1rem;
-  
 }
-
-
-
 
 .cool:hover {
   background-color: rgb(226, 234, 232);
@@ -104,21 +90,17 @@ p {
 input.user:placeholder-shown {
 }
 
-
 .align-center {
   justify-content: center;
 }
 
-
-
 .buttn {
-
   background-color: #0d6dfd;
   color: rgb(236, 255, 255);
   font-size: large;
   border-radius: 40px;
   border-color: rgb(0, 145, 255);
-  padding: 0.6rem ;
+  padding: 0.6rem;
 }
 
 .buttn:hover {
@@ -130,8 +112,6 @@ input.user:placeholder-shown {
   font-size: large;
 }
 
-
-
 .nav-heading {
   position: relative;
   width: 100%;
@@ -141,22 +121,17 @@ input.user:placeholder-shown {
 .nav-heading-1 {
   font-size: 3.4rem;
   font-weight: bolder;
-
 }
 
 .nav-heading-2 {
   align-self: auto;
   font-size: 1.5rem;
   font-weight: bold;
-
 }
-
 
 table a {
   color: #0d6dfddf;
 }
-
-
 
 .user-logo {
   font-weight: 600;
@@ -181,18 +156,17 @@ table a {
   height: fit-content;
 }
 
-
 @keyframes scroll {
   0% {
-      transform: translate(0);
+    transform: translate(0);
   }
 
   50% {
-      transform: translate(-10%);
+    transform: translate(-10%);
   }
 
   100% {
-      transform: translate(-30%);
+    transform: translate(-30%);
   }
 }
 
@@ -213,80 +187,70 @@ a {
   offset: 3;
 }
 
-
 .liked {
   color: red;
 }
 
-
-
-
-
-
-
-@media screen and (max-width :1222px) {
+@media screen and (max-width: 1222px) {
   .search-form {
-      display: flex;
-      flex-direction: column;
-      width: auto;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    align-items: center;
   }
 
   .container {
-      width: 80%;
-      min-width: -webkit-fill-available;
-      margin: 12px 13px;
+    width: 80%;
+    min-width: -webkit-fill-available;
+    margin: 12px 13px;
   }
-
 }
 
-@media screen and (max-width :460px) {
+@media screen and (max-width: 460px) {
   .book-head {
-      display: flex;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
   }
 
   .img-desc {
-      height: 15rem;
-      width: 10rem;
+    height: 15rem;
+    width: 10rem;
   }
 
   .book-desc {
-      margin: 2rem 1rem !important;
-      /* margin-bottom: 1rem !important; */
-      font-size: 0.9rem !important;
+    margin: 2rem 1rem !important;
+    /* margin-bottom: 1rem !important; */
+    font-size: 0.9rem !important;
   }
-  .book-meta{
-      flex-direction: column;
+  .book-meta {
+    flex-direction: column;
   }
 
   .search-form {
-      height: 32rem;
+    height: 32rem;
   }
 
   .search-form-group {
-      width: 70%;
+    width: 70%;
   }
 
   .scroll-content {
-      animation: scroll 3s linear infinite;
+    animation: scroll 3s linear infinite;
   }
 }
 
-
-
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 10px;
-    background-color: transparent;
-    height: 0;
-    position: relative;
-    right:0
+  background-color: transparent;
+  height: 0;
+  position: relative;
+  right: 0;
 }
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background-color: #c8c8c8;
   border-radius: 1rem;
 }
 
-*{
+* {
   transition: 0.5s;
 }

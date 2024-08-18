@@ -9,9 +9,9 @@ export default function Profile(props) {
   return !state.user.email ? (
     <Navigate to="/" replace />
   ) : (
-    <div className="container d-flex flex-column flex-lg-row m-5">
-      <div className=" profile-data  d-flex flex-column">
-        <div className="profile-pic d-flex flex-column align-items-center box-border p-5">
+    <div className="container rounded-5 d-flex flex-column flex-lg-row m-5 mx-auto">
+      <div className=" profile-data  d-flex flex-column ">
+        <div className="profile-pic d-flex flex-column  align-items-center box-border p-5">
           {state.user.profileImg ? (
             <img
               style={{
@@ -35,7 +35,7 @@ export default function Profile(props) {
           <span className="fs-2"> {state.user.email} </span>
         </div>
 
-        <div className="d-grid align-items-center ">
+        <div className="  text-center">
           <button
             className="buttn bg-primary"
             onClick={() => {
@@ -54,7 +54,7 @@ export default function Profile(props) {
           paddingLeft: "1rem",
         }}
       >
-        <div className="fs-3">Library</div>
+        <div className="fs-2 fs-bold">Library</div>
         {/* <hr />s */}
         <Library {...props} />
       </div>

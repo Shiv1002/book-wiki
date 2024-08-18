@@ -132,69 +132,73 @@ function Login({ state, dispatch }) {
               <Spinner />{" "}
             </div>
           ) : (
-            <div className="input-form">
-              <h2>Login account</h2>
+            <div className="input-form ">
+              <h2 className="mb-4">Login account</h2>
 
-              <input
-                className="form-control user"
-                name="email"
-                type="email"
-                id="email"
-                required
-                placeholder="Enter Email Address here!"
-                value={inputState.email}
-                onChange={handleInput}
-              />
+              <div className=" flex-grow-1  d-flex flex-column ">
+                <div className="mb-4">
+                  <div className="px-2 ">
+                    <input
+                      className="form-control user"
+                      name="email"
+                      type="email"
+                      id="email"
+                      required
+                      placeholder="Enter Email Address here!"
+                      value={inputState.email}
+                      onChange={handleInput}
+                    />
 
-              <input
-                className="form-control user"
-                name="password"
-                type="password"
-                id="pwd"
-                placeholder="Enter Password here!"
-                value={inputState.password}
-                onChange={handleInput}
-                required
-              />
+                    <input
+                      className="form-control user"
+                      name="password"
+                      type="password"
+                      id="pwd"
+                      placeholder="Enter Password here!"
+                      value={inputState.password}
+                      onChange={handleInput}
+                      required
+                    />
+                  </div>
+                  <p className="labels align-center mx-2 my-2">
+                    By signing up you accept our&nbsp;
+                    <a className="" href="#">
+                      Terms Of Use
+                    </a>
+                  </p>
+                  <div className="d-flex justify-content-evenly">
+                    <button
+                      className="buttn "
+                      type="submit"
+                      onClick={(e) => signInWithFirebase(e)}
+                    >
+                      login
+                    </button>
 
-              <p className="labels align-center mx-2 my-2">
-                By signing up you accept our&nbsp;
-                <a className="" href="#">
-                  Terms Of Use
-                </a>
-              </p>
-              <div className="d-flex justify-content-evenly">
-                <button
-                  className="buttn "
-                  type="submit"
-                  onClick={(e) => signInWithFirebase(e)}
-                >
-                  login
-                </button>
-
-                <button
-                  className="buttn "
-                  type="submit"
-                  onClick={() => signUpWithFireBase()}
-                >
-                  sign up
-                </button>
-              </div>
-
-              <div className="col-md-12">
-                <div className="login-or">
-                  <hr className="hr-or" />
-                  <span className="span-or">or Signup with</span>
+                    <button
+                      className="buttn "
+                      type="submit"
+                      onClick={() => signUpWithFireBase()}
+                    >
+                      sign up
+                    </button>
+                  </div>
                 </div>
-              </div>
+                <div className="col-md-12">
+                  <div className="login-or">
+                    <hr className="hr-or" />
+                    <span className="span-or">or Signup with</span>
+                  </div>
+                </div>
 
-              <div id="logo" className="d-flex ">
-                <button
-                  onClick={() => login()}
-                  className="d-flex align-items-center"
-                >
-                  <span>Login with</span> <GoogleIcon fill="darkred" />
-                </button>
+                <div id="logo" className="d-flex mt-4">
+                  <button
+                    onClick={() => login()}
+                    className="d-flex align-items-center"
+                  >
+                    <span>Login with</span> <GoogleIcon fill="darkred" />
+                  </button>
+                </div>
               </div>
             </div>
           )

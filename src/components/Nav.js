@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Nav.css";
-import { User } from "./Layout/icons";
+import { ArrowDown, User } from "./Layout/icons";
 import { Toaster } from "react-hot-toast";
 class NavBar extends Component {
   constructor(props) {
@@ -92,15 +92,7 @@ class NavBar extends Component {
               {/* bootstrap classes */}
               {/* {property}{sides}-{breakpoint}-{size} */}
 
-              <li
-                className="nav-item ms-sm-auto "
-                style={{
-                  zIndex: 3,
-                  position: "absolute",
-                  top: "1rem",
-                  right: "1rem",
-                }}
-              >
+              <li className="nav-item ms-sm-auto d-flex justify-content-center">
                 {this.state.user.email ? (
                   <div
                     className="profile-show  position-relative "
@@ -123,20 +115,25 @@ class NavBar extends Component {
                       );
                     }}
                   >
-                    <User fill="white" />
+                    <div className="my-auto">
+                      <User fill="white" />
+                      <ArrowDown fill="white" />
+                    </div>
                     <div
-                      className="pro-show d-flex flex-column  bg-transparent"
+                      className="pro-show d-flex flex-column  bg-transparent position-absolute "
                       style={
                         this.state.showProfileCard
                           ? // true
                             {
-                              translate: "0 1rem",
+                              translate: "0 2rem",
                               opacity: 1,
+                              zIndex: 10,
                             }
                           : {
                               // display: "none",
-                              translate: "0 -5rem",
+                              translate: "0 -8rem",
                               opacity: 0,
+                              zIndex: 10,
                             }
                       }
                     >
